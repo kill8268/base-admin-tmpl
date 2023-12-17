@@ -1,0 +1,56 @@
+{
+  "name": "webapp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "cd .. && husky install webapp/.husky & vite",
+    "build": "vite build",
+    "lint": "eslint src --ext js,jsx --report-unused-disable-directives --max-warnings 0"
+  },
+  "keywords": [],
+  "author": "noobcat",
+  "license": "ISC",
+  "lint-staged": {
+    "**/*.{js,jsx}": [
+      "eslint --fix"
+    ]
+  },
+  "dependencies": {
+    "@chakra-ui/breadcrumb": "^2.2.0",
+    "@chakra-ui/react": "^2.8.2",
+    "@chakra-ui/transition": "^2.1.0",
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
+    "framer-motion": "^10.16.16",
+    "lodash-es": "^4.17.21",
+    "path-to-regexp": "^6.2.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-hook-form": "^7.49.2",
+    "react-icons": "^4.12.0",
+    "react-paginate": "^8.2.0",
+    "react-router-dom": "^6.21.0",
+    "swr": "^2.2.4",
+    "zustand": "^4.4.7"
+  },
+  "devDependencies": {
+    "@rollup/pluginutils": "^5.1.0",
+    "@vitejs/plugin-react-swc": "^3.5.0",
+    "autoprefixer": "^10.4.16",
+    "eslint": "^8.56.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-import": "^2.29.1",
+    "eslint-plugin-prettier": "^5.0.1",
+    "eslint-plugin-react": "^7.33.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-refresh": "^0.4.5",
+    "husky": "^8.0.3",
+    "less": "^4.2.0",
+    "postcss": "^8.4.32",
+    "prettier": "^3.1.1",
+    "tailwindcss": "^3.3.6",
+    "vite": "^5.0.10"
+  }
+}

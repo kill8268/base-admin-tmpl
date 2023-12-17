@@ -1,0 +1,92 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  font-family:
+    BlinkMacSystemFont,
+    Helvetica Neue,
+    PingFang SC,
+    Microsoft YaHei,
+    Source Han Sans SC,
+    Noto Sans CJK SC,
+    WenQuanYi Micro Hei,
+    sans-serif;
+  color: #1a202c;
+}
+
+.nav {
+  transition: width 0.3s ease;
+  @apply w-52 bg-white shadow-lg px-4 overflow-auto;
+
+  .title {
+    @apply text-xl font-semibold text-center pt-6;
+  }
+
+  .title-hr {
+    @apply my-4;
+  }
+
+  span {
+    visibility: visible;
+    opacity: 1;
+    transition:
+      visibility 0s,
+      opacity 0.3s ease-in-out;
+  }
+
+  .menu {
+    @apply space-y-2 text-info;
+  }
+
+  .menu-title {
+    @apply pb-3 font-semibold text-sm;
+  }
+
+  .menu-item {
+    @apply flex items-center p-2 rounded-md cursor-pointer space-x-2;
+    &:hover {
+      @apply bg-gray-100 text-gray-900;
+    }
+    .icon {
+      @apply w-8 h-8 flex justify-center items-center rounded;
+    }
+  }
+
+  .menu-item-active {
+    @apply bg-gray-100 text-gray-900 font-semibold;
+    .icon {
+      @apply bg-primary text-white rounded;
+    }
+  }
+}
+
+.nav-samll {
+  @apply w-12 bg-white shadow-lg p-0;
+  .title {
+    @apply hidden;
+  }
+  .title-hr {
+    @apply hidden;
+  }
+  .menu-title {
+    @apply hidden;
+  }
+
+  span {
+    width: 0;
+    height: 0;
+    visibility: hidden;
+    opacity: 0;
+    transition:
+      visibility 0s,
+      opacity 0.3s ease-in-out;
+  }
+
+  .menu-item {
+    @apply flex items-center p-0 rounded-none cursor-pointer space-x-0;
+    .icon {
+      @apply w-12 h-12 flex justify-center items-center rounded-none;
+    }
+  }
+}
