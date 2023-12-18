@@ -1,0 +1,77 @@
+openapi: 3.0.1
+info:
+  title: base-admin-server
+  description: base admin server
+  contact:
+    name: wangyx
+  version: 0.0.1-SNAPSHOT
+servers:
+  - url: http://base-admin-server/base-admin-server
+tags:
+  - name: system-config
+    description: 系统配置
+paths:
+  /system/config:
+    get:
+      tags:
+        - system-config
+      description: 系统配置列表
+      operationId: getSystemConfig
+      parameters:
+        - $ref: '#/components/parameters/name'
+      responses:
+        "200":
+          description: 查询系统配置列表成功
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/systemConfig'
+        "400":
+          description: 非法请求
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorModel'
+        "500":
+          description: 服务器未知错误
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorModel'
+components:
+  schemas:
+    systemConfig:
+      type: object
+      properties:
+        groupName:
+          type: string
+          description: 组名
+        name:
+          type: string
+          description: 配置名称
+        value:
+          type: string
+          description: 配置内容
+        description:
+          type: string
+          description: 说明
+
+    errorModel:
+      type: object
+      properties:
+        errorCode:
+          type: string
+          description: 错误编码
+        devMessage:
+          type: string
+          description: 错误说明
+  parameters:
+    name:
+      name: name
+      in: query
+      description: 名称
+      required: false
+      schema:
+        type: string

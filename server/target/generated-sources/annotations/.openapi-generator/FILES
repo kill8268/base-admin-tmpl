@@ -1,0 +1,14 @@
+README.md
+com/base/admin/generated/controller/OpenApiGeneratorApplication.java
+com/base/admin/generated/controller/RFC3339DateFormat.java
+com/base/admin/generated/controller/interfaces/ApiUtil.java
+com/base/admin/generated/controller/interfaces/SystemConfigApi.java
+com/base/admin/generated/controller/interfaces/SystemConfigApiController.java
+com/base/admin/generated/model/ErrorModel.java
+com/base/admin/generated/model/SystemConfig.java
+com/base/admin/generated/openapi/HomeController.java
+com/base/admin/generated/openapi/SpringDocConfiguration.java
+pom.xml
+src/main/resources/application.properties
+src/main/resources/openapi.yaml
+src/test/java/com/base/admin/generated/controller/OpenApiGeneratorApplicationTests.java

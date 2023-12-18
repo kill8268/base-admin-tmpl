@@ -1,0 +1,93 @@
+openapi: 3.0.1
+info:
+  contact:
+    name: wangyx
+  description: base admin server
+  title: base-admin-server
+  version: 0.0.1-SNAPSHOT
+servers:
+- url: http://base-admin-server/base-admin-server
+tags:
+- description: 系统配置
+  name: system-config
+paths:
+  /system/config:
+    get:
+      description: 系统配置列表
+      operationId: getSystemConfig
+      parameters:
+      - description: 名称
+        explode: true
+        in: query
+        name: name
+        required: false
+        schema:
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/systemConfig'
+                type: array
+          description: 查询系统配置列表成功
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorModel'
+          description: 非法请求
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorModel'
+          description: 服务器未知错误
+      tags:
+      - system-config
+      x-accepts: application/json
+      x-tags:
+      - tag: system-config
+components:
+  parameters:
+    name:
+      description: 名称
+      explode: true
+      in: query
+      name: name
+      required: false
+      schema:
+        type: string
+      style: form
+  schemas:
+    systemConfig:
+      example:
+        groupName: groupName
+        name: name
+        description: description
+        value: value
+      properties:
+        groupName:
+          description: 组名
+          type: string
+        name:
+          description: 配置名称
+          type: string
+        value:
+          description: 配置内容
+          type: string
+        description:
+          description: 说明
+          type: string
+      type: object
+    errorModel:
+      properties:
+        errorCode:
+          description: 错误编码
+          type: string
+        devMessage:
+          description: 错误说明
+          type: string
+      type: object
