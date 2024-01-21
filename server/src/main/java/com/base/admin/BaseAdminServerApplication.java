@@ -8,8 +8,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @MapperScan("com.base.admin.mapper")
 public class BaseAdminServerApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(BaseAdminServerApplication.class, args);
-	}
+  public static void main(String[] args) {
+    SpringApplication.run(BaseAdminServerApplication.class, args);
+  }
 
 }

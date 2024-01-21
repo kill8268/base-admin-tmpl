@@ -1,0 +1,156 @@
+openapi: 3.0.1
+info:
+  title: base-admin-server
+  description: base admin server
+  contact:
+    name: wangyx
+  version: 0.0.1-SNAPSHOT
+servers:
+  - url: http://base-admin-server/base-admin-server
+tags:
+  - name: auth
+    description: 系统用户
+paths:
+  /auth:
+    get:
+      tags:
+        - auth
+      summary: 获取用户列表
+      operationId: getList
+      parameters:
+        - $ref: "#/components/parameters/authName"
+        - $ref: "#/components/parameters/phone"
+      responses:
+        "200":
+          description: 查询用户列表成功
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "./common.yaml#/components/schemas/auth"
+        "400":
+          $ref: "./common.yaml#/components/schemas/400"
+        "500":
+          $ref: "./common.yaml#/components/schemas/500"
+    post:
+      tags:
+        - auth
+      summary: 创建用户
+      operationId: createAuth
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "./common.yaml#/components/schemas/auth"
+      responses:
+        "201":
+          description: 创建用户成功
+          content:
+            application/json:
+              schema:
+                $ref: "./common.yaml#/components/schemas/auth"
+        "400":
+          $ref: "./common.yaml#/components/schemas/400"
+        "500":
+          $ref: "./common.yaml#/components/schemas/500"
+  /auth/{uuid}:
+    get:
+      tags:
+        - auth
+      summary: 获取单个用户
+      operationId: getAuth
+      parameters:
+        - name: uuid
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: 查询用户成功
+          content:
+            application/json:
+              schema:
+                $ref: "./common.yaml#/components/schemas/auth"
+        "400":
+          $ref: "./common.yaml#/components/schemas/400"
+        "500":
+          $ref: "./common.yaml#/components/schemas/500"
+    put:
+      tags:
+        - auth
+      summary: 更新用户
+      operationId: updateAuth
+      parameters:
+        - name: uuid
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "./common.yaml#/components/schemas/auth"
+      responses:
+        "200":
+          description: 更新用户成功
+          content:
+            application/json:
+              schema:
+                $ref: "./common.yaml#/components/schemas/auth"
+        "400":
+          $ref: "./common.yaml#/components/schemas/400"
+        "500":
+          $ref: "./common.yaml#/components/schemas/500"
+  /auth/{uuid}/status:
+    patch:
+      tags:
+        - auth
+      summary: 更改用户状态
+      operationId: changeAuthStatus
+      parameters:
+        - name: uuid
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: integer
+      responses:
+        "200":
+          description: 更改用户状态成功
+          content:
+            application/json:
+              schema:
+                $ref: "./common.yaml#/components/schemas/auth"
+        "400":
+          $ref: "./common.yaml#/components/schemas/400"
+        "500":
+          $ref: "./common.yaml#/components/schemas/500"
+components:
+  parameters:
+    authName:
+      name: authName
+      in: query
+      description: 用户名称
+      required: false
+      schema:
+        type: string
+    phone:
+      name: phone
+      in: query
+      description: 用户电话
+      required: false
+      schema:
+        type: string

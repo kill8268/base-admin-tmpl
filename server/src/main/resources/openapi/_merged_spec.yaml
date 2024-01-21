@@ -1,0 +1,19 @@
+---
+servers:
+- url: "http://localhost:8080"
+openapi: "3.0.1"
+paths:
+  /dict:
+    $ref: "./dict.yaml#/paths/~1dict"
+  /auth:
+    $ref: "./auth.yaml#/paths/~1auth"
+  /dict/{uuid}:
+    $ref: "./dict.yaml#/paths/~1dict~1{uuid}"
+  /auth/{uuid}:
+    $ref: "./auth.yaml#/paths/~1auth~1{uuid}"
+  /auth/{uuid}/status:
+    $ref: "./auth.yaml#/paths/~1auth~1{uuid}~1status"
+info:
+  title: "merged spec"
+  description: "merged spec"
+  version: "1.0.0"

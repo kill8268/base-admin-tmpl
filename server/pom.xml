@@ -55,8 +55,22 @@
 			<artifactId>jackson-databind-nullable</artifactId>
 			<version>0.2.6</version>
 		</dependency>
-
-
+    <dependency>
+      <groupId>javax.validation</groupId>
+      <artifactId>validation-api</artifactId>
+      <version>2.0.1.Final</version>
+    </dependency>
+    <dependency>
+      <groupId>javax.annotation</groupId>
+      <artifactId>javax.annotation-api</artifactId>
+      <version>1.3.2</version>
+    </dependency>
+    <dependency>
+        <groupId>javax.servlet</groupId>
+        <artifactId>javax.servlet-api</artifactId>
+        <version>4.0.1</version>
+        <scope>provided</scope>
+    </dependency>
 		<dependency>
 			<groupId>io.micrometer</groupId>
 			<artifactId>micrometer-registry-prometheus</artifactId>
@@ -118,34 +132,19 @@
 			<plugin>
 				<groupId>org.openapitools</groupId>
 				<artifactId>openapi-generator-maven-plugin</artifactId>
-				<version>6.6.0</version>
+				<version>7.2.0</version>
 				<executions>
 					<execution>
 						<id>generate-server</id>
 						<goals>
 							<goal>generate</goal>
 						</goals>
-						<configuration>
-							<inputSpec>${project.basedir}/swagger.yaml</inputSpec>
-							<output>${project.basedir}/target/generated-sources/annotations</output>
+            <configuration>
+              <inputSpec>${project.basedir}/src/main/resources/openapi/openapi.yaml</inputSpec>
+              <inputSpecRootDirectory>${project.basedir}/src/main/resources/openapi</inputSpecRootDirectory>
 							<generatorName>spring</generatorName>
-							<skipValidateSpec>true</skipValidateSpec>
-							<generateApiTests>false</generateApiTests>
-							<generateModelTests>false</generateModelTests>
-							<ignoreFileOverride>${project.basedir}/.openapi-generator-ignore</ignoreFileOverride>
 							<configOptions>
-								<apiPackage>${base.package}.generated.controller.interfaces</apiPackage>
-								<modelPackage>${base.package}.generated.model</modelPackage>
-								<invokerPackage>${base.package}.generated.controller</invokerPackage>
-								<configPackage>${base.package}.generated.openapi</configPackage>
-								<sourceFolder>.</sourceFolder>
-								<dateLibrary>java8-localdatetime</dateLibrary>
-								<hideGenerationTimestamp>true</hideGenerationTimestamp>
-								<serializableModel>true</serializableModel>
-								<openApiNullable>false</openApiNullable>
-								<useJakartaEe>true</useJakartaEe>
-								<useSpringBoot3>true</useSpringBoot3>
-								<useTags>true</useTags>
+                <sourceFolder>src/gen/java/main</sourceFolder>
 							</configOptions>
 						</configuration>
 					</execution>
@@ -153,9 +152,11 @@
 			</plugin>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-				<configuration>
-					<excludes>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+        <version>3.2.0</version>
+        <configuration>
+          <mainClass>com.base.admin.BaseAdminServerApplication</mainClass>
+          <excludes>
 						<exclude>
 							<groupId>org.projectlombok</groupId>
 							<artifactId>lombok</artifactId>
