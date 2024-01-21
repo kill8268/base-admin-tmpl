@@ -6,8 +6,8 @@ spring:
   datasource:
     driver-class-name: org.postgresql.Driver
     url: jdbc:postgresql://localhost:5432/noobcat?currentSchema=admin
-    username: noobcat
-    password: Wangtengyu00
+    username:
+    password:
 
 server:
   servlet:
