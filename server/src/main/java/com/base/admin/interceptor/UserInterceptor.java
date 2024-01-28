@@ -6,7 +6,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.openapitools.model.Auth;
 import org.springframework.web.servlet.HandlerInterceptor;
 
-import com.base.admin.Component.JwtUtil;
+import com.base.admin.component.JwtUtil;
 import com.base.admin.context.UserContext;
 import com.base.admin.service.AuthService;
 
@@ -18,6 +18,7 @@ public class UserInterceptor implements HandlerInterceptor {
 
   public UserInterceptor(JwtUtil jwtUtil, AuthService authService) {
     this.jwtUtil = jwtUtil;
+    this.authService = authService;
   }
 
   private static final void setEerrorResponse(HttpServletResponse response, String errorMessage) throws Exception {
@@ -39,22 +40,27 @@ public class UserInterceptor implements HandlerInterceptor {
       setEerrorResponse(response, "{\"error\": \"未登录\"}");
       return false;
     }
-
-    if (!jwtUtil.isTokenExpired(token)) {
-      setEerrorResponse(response, "{\"error\": \"登录超时\"}");
-      return false;
-    }
-    Auth auth = authService.getById(jwtUtil.extractUserId(token));
-    if (auth == null) {
+    try {
+      if (jwtUtil.isTokenExpired(token)) {
+        setEerrorResponse(response, "{\"error\": \"登录超时\"}");
+        return false;
+      }
+      Auth auth = authService.getById(jwtUtil.extractUserId(token));
+      if (auth == null) {
+        setEerrorResponse(response, "{\"error\": \"非法访问\"}");
+        return false;
+      }
+      if (!auth.getEnable()) {
+        setEerrorResponse(response, "{\"error\": \"账号已禁用\"}");
+        return false;
+      }
+      UserContext.currentUser.set(auth);
+      return true;
+    } catch (Exception e) {
+      e.printStackTrace();
       setEerrorResponse(response, "{\"error\": \"非法访问\"}");
       return false;
     }
-    if (!auth.getEnable()) {
-      setEerrorResponse(response, "{\"error\": \"账号已禁用\"}");
-      return false;
-    }
-    UserContext.currentUser.set(auth);
-    return true;
   }
 
   @Override

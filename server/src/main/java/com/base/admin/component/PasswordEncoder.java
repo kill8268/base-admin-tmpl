@@ -1,10 +1,13 @@
-package com.base.admin.utils;
+package com.base.admin.component;
 
+import java.util.Base64;
 import org.bouncycastle.crypto.generators.Argon2BytesGenerator;
 import org.bouncycastle.crypto.params.Argon2Parameters;
+import org.springframework.stereotype.Component;
 
+@Component
 public class PasswordEncoder {
-  public static String encode(String rawPassword) {
+  public String encode(String rawPassword) {
     Argon2Parameters.Builder builder = new Argon2Parameters.Builder(Argon2Parameters.ARGON2_id)
         .withVersion(Argon2Parameters.ARGON2_VERSION_13)
         .withIterations(10)
@@ -15,11 +18,10 @@ public class PasswordEncoder {
     byte[] raw = rawPassword.getBytes();
     byte[] hash = new byte[32];
     generator.generateBytes(raw, hash);
-    return new String(hash);
+    return Base64.getEncoder().encodeToString(hash);
   }
 
-  public static boolean matches(String rawPassword, String encodedPassword) {
+  public boolean matches(String rawPassword, String encodedPassword) {
     return encodedPassword.equals(encode(rawPassword));
   }
-
 }

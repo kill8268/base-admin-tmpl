@@ -1,16 +1,18 @@
-package com.base.admin.Component;
+package com.base.admin.component;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.security.Keys;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 import javax.crypto.SecretKey;
-import java.util.Base64;
+
+import java.nio.charset.StandardCharsets;
 import java.util.Date;
 import java.util.function.Function;
-import javax.crypto.spec.SecretKeySpec;
 
 @Component
 public class JwtUtil {
@@ -22,8 +24,7 @@ public class JwtUtil {
   public JwtUtil(Environment env) {
     try {
       String secretKeyString = env.getProperty("jwt.secret");
-      byte[] decodedKey = Base64.getDecoder().decode(secretKeyString);
-      this.secretKey = new SecretKeySpec(decodedKey, 0, decodedKey.length, "AES");
+      this.secretKey = Keys.hmacShaKeyFor(secretKeyString.getBytes(StandardCharsets.UTF_8));
     } catch (Exception e) {
       System.out.println("Error getting jwt.secret or jwt.expiration: " + e.getMessage());
     }
@@ -50,7 +51,6 @@ public class JwtUtil {
     long currentTimeMillis = System.currentTimeMillis();
     Date issuedAt = new Date(currentTimeMillis);
     Date expiration = new Date(currentTimeMillis + expirationMillis);
-
     return Jwts.builder()
         .subject(userId)
         .issuedAt(issuedAt)

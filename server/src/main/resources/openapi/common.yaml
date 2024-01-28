@@ -43,15 +43,14 @@ components:
           type: integer
         enable:
           type: boolean
-        created_by:
+        createdBy:
           type: string
-        format: uuid
-        created_at:
+        createdAt:
           type: string
           format: date-time
-        updated_by:
+        updatedBy:
           type: string
-        updated_at:
+        updatedAt:
           type: string
           format: date-time
     auth:
@@ -67,8 +66,8 @@ components:
             password:
               type: string
               description: 密码
-            is_admin:
-              type: integer
+            isAdmin:
+              type: boolean
     dict:
       allOf:
         - $ref: "#/components/schemas/base"

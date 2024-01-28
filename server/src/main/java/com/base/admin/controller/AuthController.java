@@ -11,9 +11,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.base.admin.Component.JwtUtil;
+import com.base.admin.component.JwtUtil;
 import com.base.admin.service.AuthService;
-import com.base.admin.utils.PasswordEncoder;
+import com.base.admin.component.PasswordEncoder;
+import com.base.admin.context.UserContext;
 
 @RestController
 public class AuthController implements AuthApi {
@@ -22,6 +23,9 @@ public class AuthController implements AuthApi {
 
   @Autowired
   private JwtUtil jwtUtil;
+
+  @Autowired
+  private PasswordEncoder passwordEncoder;
 
   @Override
   public ResponseEntity<String> signIn(SignInRequest signInRequest) {
@@ -34,7 +38,7 @@ public class AuthController implements AuthApi {
     if (!auth.getEnable()) {
       return ResponseEntity.badRequest().body("账号已禁用");
     }
-    boolean isMatch = PasswordEncoder.matches(signInRequest.getPassword(), auth.getPassword());
+    boolean isMatch = passwordEncoder.matches(signInRequest.getPassword(), auth.getPassword());
     if (!isMatch) {
       return ResponseEntity.badRequest().body("密码错误");
     }
@@ -60,8 +64,16 @@ public class AuthController implements AuthApi {
   @Override
   public ResponseEntity<Auth> createAuth(Auth auth) {
     auth.setId(null);
-    auth.setPassword(PasswordEncoder.encode(auth.getPassword()));
+    if (authService.getOne(Wrappers.<Auth>lambdaQuery().eq(Auth::getUsername, auth.getUsername())) != null) {
+      throw new RuntimeException("用户名已存在");
+    }
+    if (authService.getOne(Wrappers.<Auth>lambdaQuery().eq(Auth::getPhone, auth.getPhone())) != null) {
+      throw new RuntimeException("手机号已存在");
+    }
+    System.out.println(UserContext.currentUser.get().toString());
+    auth.setPassword(passwordEncoder.encode(auth.getPassword()));
     authService.save(auth);
+    auth.setPassword(null);
     return ResponseEntity.ok(auth);
   }
 
@@ -69,6 +81,7 @@ public class AuthController implements AuthApi {
   public ResponseEntity<Auth> updateAuth(String id, Auth auth) {
     auth.setId(id);
     authService.updateById(auth);
+    auth.setPassword(null);
     return ResponseEntity.ok(auth);
   }
 
