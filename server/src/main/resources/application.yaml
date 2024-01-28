@@ -12,7 +12,9 @@ spring:
 server:
   servlet:
     context-path: /base-admin-server
-
+jwt:
+  secret: isfIRVV5jTubzxEn2zEVSQ9nOiNL9E2N6ovXfTwzgPk=
+  expiration: 86400000 # 24 hours
 springdoc:
   swagger-ui:
     enabled: true

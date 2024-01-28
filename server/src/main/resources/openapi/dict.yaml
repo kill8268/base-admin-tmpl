@@ -52,7 +52,7 @@ paths:
           $ref: "./common.yaml#/components/schemas/400"
         "500":
           $ref: "./common.yaml#/components/schemas/500"
-  /dict/{uuid}:
+  /dict/{id}:
     get:
       tags:
         - dict
@@ -82,7 +82,7 @@ paths:
       operationId: updateDict
       summary: 根据ID更新系统字典
       parameters:
-        - name: uuid
+        - name: id
           in: path
           description: 字典ID
           required: true
@@ -105,30 +105,19 @@ paths:
           $ref: "./common.yaml#/components/schemas/400"
         "500":
           $ref: "./common.yaml#/components/schemas/500"
+  /dict/{id}/toggleEnable:
     patch:
       tags:
         - dict
-      operationId: changeDictStatus
+      operationId: toggleEnable
       summary: 根据ID修改系统字典状态
       parameters:
-        - name: uuid
+        - name: id
           in: path
           description: 字典ID
           required: true
           schema:
             type: string
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                status:
-                  type: string
-                  enum:
-                    - active
-                    - inactive
       responses:
         "200":
           description: 修改系统字典状态成功
@@ -145,8 +134,3 @@ components:
       required: false
       schema:
         type: string
-  securitySchemes:
-    bearerAuth:
-      type: http
-      scheme: bearer
-      bearerFormat: JWT

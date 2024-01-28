@@ -29,15 +29,20 @@ components:
         application/json:
           schema:
             $ref: "#/components/schemas/errorModel"
+    securitySchemes:
+      bearerAuth:
+        type: http
+        scheme: bearer
+        bearerFormat: JWT
     base:
       properties:
         id:
-          type: integer
-          format: int64
-        uuid:
           type: string
-        status:
+          format: int64
+        inx:
           type: integer
+        enable:
+          type: boolean
         created_by:
           type: string
         format: uuid
@@ -56,7 +61,7 @@ components:
             phone:
               type: string
               description: 电话号码
-            authName:
+            username:
               type: string
               description: 用户名称
             password:

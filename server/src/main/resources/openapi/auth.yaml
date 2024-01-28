@@ -11,6 +11,33 @@ tags:
   - name: auth
     description: 系统用户
 paths:
+  /auth/sign-in:
+    post:
+      tags:
+        - auth
+      summary: 登录
+      operationId: signIn
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              properties:
+                auth:
+                  type: string
+                password:
+                  type: string
+      responses:
+        "200":
+          description: 登录成功
+          content:
+            application/json:
+              schema:
+                type: string
+        "400":
+          $ref: "./common.yaml#/components/schemas/400"
+        "500":
+          $ref: "./common.yaml#/components/schemas/500"
   /auth:
     get:
       tags:
@@ -18,7 +45,7 @@ paths:
       summary: 获取用户列表
       operationId: getList
       parameters:
-        - $ref: "#/components/parameters/authName"
+        - $ref: "#/components/parameters/username"
         - $ref: "#/components/parameters/phone"
       responses:
         "200":
@@ -55,14 +82,14 @@ paths:
           $ref: "./common.yaml#/components/schemas/400"
         "500":
           $ref: "./common.yaml#/components/schemas/500"
-  /auth/{uuid}:
+  /auth/{id}:
     get:
       tags:
         - auth
       summary: 获取单个用户
       operationId: getAuth
       parameters:
-        - name: uuid
+        - name: id
           in: path
           required: true
           schema:
@@ -84,7 +111,7 @@ paths:
       summary: 更新用户
       operationId: updateAuth
       parameters:
-        - name: uuid
+        - name: id
           in: path
           required: true
           schema:
@@ -106,27 +133,18 @@ paths:
           $ref: "./common.yaml#/components/schemas/400"
         "500":
           $ref: "./common.yaml#/components/schemas/500"
-  /auth/{uuid}/status:
+  /auth/{id}/toggleEnable:
     patch:
       tags:
         - auth
       summary: 更改用户状态
-      operationId: changeAuthStatus
+      operationId: toggleEnable
       parameters:
-        - name: uuid
+        - name: id
           in: path
           required: true
           schema:
             type: string
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                status:
-                  type: integer
       responses:
         "200":
           description: 更改用户状态成功
@@ -140,8 +158,8 @@ paths:
           $ref: "./common.yaml#/components/schemas/500"
 components:
   parameters:
-    authName:
-      name: authName
+    username:
+      name: username
       in: query
       description: 用户名称
       required: false
