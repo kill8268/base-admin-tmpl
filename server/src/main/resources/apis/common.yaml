@@ -1,0 +1,62 @@
+openapi: 3.0.1
+info:
+  title: base-admin-server
+  description: base admin server
+  contact:
+    name: wangyx
+  version: 0.0.1-SNAPSHOT
+servers:
+  - url: http://base-admin-server/base-admin-server
+components:
+  parameters:
+    current:
+      name: current
+      in: query
+      description: 当前页
+      required: true
+      schema:
+        type: integer
+        format: int32
+    size:
+      name: size
+      in: query
+      description: 每页显示条数
+      required: true
+      schema:
+        type: integer
+        format: int32
+  schemas:
+    baseModel:
+      properties:
+        id:
+          type: string
+          format: int64
+          description: id
+        inx:
+          type: integer
+          description: 序号
+        enable:
+          type: boolean
+          description: 启用
+        createdBy:
+          type: string
+          description: 创建人
+        createdAt:
+          type: string
+          format: date-time
+          description: 创建时间
+        updatedBy:
+          type: string
+          description: 修改人
+        updatedAt:
+          type: string
+          format: date-time
+          description: 修改时间
+    errorModel:
+      properties:
+        errorCode:
+          type: string
+          description: 错误编码
+        message:
+          type: string
+          description: 错误说明

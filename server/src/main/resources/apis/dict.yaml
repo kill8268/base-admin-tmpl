@@ -1,0 +1,243 @@
+openapi: 3.0.1
+info:
+  title: base-admin-server
+  description: base admin server
+  contact:
+    name: wangyx
+  version: 0.0.1-SNAPSHOT
+servers:
+  - url: http://base-admin-server/base-admin-server
+tags:
+  - name: dict
+    description: 系统字典
+paths:
+  /dict:
+    get:
+      tags:
+        - dict
+      operationId: getList
+      summary: 获取系统字典列表
+      parameters:
+        - name: pid
+          in: query
+          description: 字典PID
+          required: false
+          schema:
+            type: string
+      responses:
+        "200":
+          description: 查询系统字典列表成功
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/dict"
+        "400":
+          description: 非法请求
+          content:
+            application/json:
+              schema:
+                $ref: "./common.yaml#/components/schemas/errorModel"
+        "500":
+          description: 服务器未知错误
+          content:
+            application/json:
+              schema:
+                $ref: "./common.yaml#/components/schemas/errorModel"
+    post:
+      tags:
+        - dict
+      operationId: createDict
+      summary: 创建字典
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/dict"
+      responses:
+        "200":
+          description: 创建字典成功
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/dict"
+        "400":
+          description: 非法请求
+          content:
+            application/json:
+              schema:
+                $ref: "./common.yaml#/components/schemas/errorModel"
+        "500":
+          description: 服务器未知错误
+          content:
+            application/json:
+              schema:
+                $ref: "./common.yaml#/components/schemas/errorModel"
+  /dict/page:
+    get:
+      tags:
+        - dict
+      operationId: page
+      summary: page
+      parameters:
+        - $ref: "./common.yaml#/components/parameters/current"
+        - $ref: "./common.yaml#/components/parameters/size"
+        - name: name
+          in: query
+          description: 字典name
+          required: false
+          schema:
+            type: string
+      responses:
+        "200":
+          description: 查询系统字典成功
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/dictPage"
+        "400":
+          description: 非法请求
+          content:
+            application/json:
+              schema:
+                $ref: "./common.yaml#/components/schemas/errorModel"
+        "500":
+          description: 服务器未知错误
+          content:
+            application/json:
+              schema:
+                $ref: "./common.yaml#/components/schemas/errorModel"
+  /dict/{id}:
+    get:
+      tags:
+        - dict
+      operationId: getDict
+      summary: 根据ID获取系统字典
+      parameters:
+        - name: id
+          in: path
+          description: 字典ID
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: 查询系统字典成功
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/dict"
+        "400":
+          description: 非法请求
+          content:
+            application/json:
+              schema:
+                $ref: "./common.yaml#/components/schemas/errorModel"
+        "500":
+          description: 服务器未知错误
+          content:
+            application/json:
+              schema:
+                $ref: "./common.yaml#/components/schemas/errorModel"
+    put:
+      tags:
+        - dict
+      operationId: updateDict
+      summary: 根据ID更新系统字典
+      parameters:
+        - name: id
+          in: path
+          description: 字典ID
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/dict"
+      responses:
+        "200":
+          description: 更新系统字典成功
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/dict"
+        "400":
+          description: 非法请求
+          content:
+            application/json:
+              schema:
+                $ref: "./common.yaml#/components/schemas/errorModel"
+        "500":
+          description: 服务器未知错误
+          content:
+            application/json:
+              schema:
+                $ref: "./common.yaml#/components/schemas/errorModel"
+  /dict/{id}/toggleEnable:
+    patch:
+      tags:
+        - dict
+      operationId: toggleEnable
+      summary: 根据ID修改系统字典状态
+      parameters:
+        - name: id
+          in: path
+          description: 字典ID
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: 修改系统字典状态成功
+        "400":
+          description: 非法请求
+          content:
+            application/json:
+              schema:
+                $ref: "./common.yaml#/components/schemas/errorModel"
+        "500":
+          description: 服务器未知错误
+          content:
+            application/json:
+              schema:
+                $ref: "./common.yaml#/components/schemas/errorModel"
+components:
+  schemas:
+    dict:
+      allOf:
+        - $ref: "./common.yaml#/components/schemas/baseModel"
+        - type: object
+        - properties:
+            pid:
+              type: string
+              description: 父级id
+            name:
+              type: string
+              description: 字典名称
+            value:
+              type: string
+              description: 字典值
+            remark:
+              type: string
+              description: 备注
+    dictPage:
+      type: object
+      properties:
+        records:
+          type: array
+          items:
+            $ref: "#/components/schemas/dict"
+        total:
+          type: integer
+          format: int64
+        size:
+          type: integer
+          format: int32
+        current:
+          type: integer
+          format: int32
