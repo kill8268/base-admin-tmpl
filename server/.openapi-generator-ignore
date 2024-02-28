@@ -1,0 +1,16 @@
+**/*.xml
+**/*.md
+**/*.yml
+**/*.yaml
+**/*.gradle
+**/*.sbt
+**/*.sh
+**/*.bat
+**/*.jar
+**/*.properties
+**/gradlew
+**/.gitignore
+**/.openapi-generator-ignore
+**/src/**
+**/OpenApiGeneratorApplication.java
+**/interfaces/*Controller.java

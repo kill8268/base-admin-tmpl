@@ -10,8 +10,8 @@ public class PasswordEncoder {
   public String encode(String rawPassword) {
     Argon2Parameters.Builder builder = new Argon2Parameters.Builder(Argon2Parameters.ARGON2_id)
         .withVersion(Argon2Parameters.ARGON2_VERSION_13)
-        .withIterations(10)
-        .withMemoryAsKB(65536)
+        .withIterations(5)
+        .withMemoryAsKB(625)
         .withParallelism(1);
     Argon2BytesGenerator generator = new Argon2BytesGenerator();
     generator.init(builder.build());
@@ -22,6 +22,7 @@ public class PasswordEncoder {
   }
 
   public boolean matches(String rawPassword, String encodedPassword) {
+    System.out.println(encode(rawPassword));
     return encodedPassword.equals(encode(rawPassword));
   }
 }

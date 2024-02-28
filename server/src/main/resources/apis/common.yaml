@@ -32,9 +32,6 @@ components:
           type: string
           format: int64
           description: id
-        inx:
-          type: integer
-          description: 序号
         enable:
           type: boolean
           description: 启用

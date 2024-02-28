@@ -33,6 +33,8 @@ export default async function fetcher(method, url, data, timeout = 5000) {
   const headers = {
     "Content-Type": "application/json",
     Authorization: `${storage().get(storage.KEY.TOKEN)}`,
+    Device: "PC",
+    DeviceId: "PC",
   };
 
   const fetchPromise = (async () => {

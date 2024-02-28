@@ -5,7 +5,6 @@ import autoprefixer from "autoprefixer";
 import AutoRouterPlugin from "./plugins/auto-router";
 
 export default defineConfig({
-  root: "src",
   plugins: [
     react(),
     AutoRouterPlugin({
@@ -19,7 +18,7 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      "@/": "/",
+      "@/": "/src/",
     },
   },
   server: {
