@@ -1,4 +1,3 @@
-import { resolve } from "path";
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import tailwindcss from "tailwindcss";
@@ -13,13 +12,6 @@ export default defineConfig({
       separateFile: ["login.jsx"], // 单独层级文件
     }),
   ],
-  build: {
-    rollupOptions: {
-      input: {
-        index: resolve("src/index.html"),
-      },
-    },
-  },
   css: {
     postcss: {
       plugins: [tailwindcss, autoprefixer],
