@@ -3,19 +3,10 @@
 @tailwind utilities;
 
 html {
-  font-family:
-    BlinkMacSystemFont,
-    Helvetica Neue,
-    PingFang SC,
-    Microsoft YaHei,
-    Source Han Sans SC,
-    Noto Sans CJK SC,
-    WenQuanYi Micro Hei,
-    sans-serif;
   color: #1a202c;
 }
 
-.nav {
+.page-menu {
   transition: width 0.3s ease;
   @apply w-52 bg-white shadow-lg px-4 overflow-auto;
 
@@ -35,27 +26,28 @@ html {
       opacity 0.3s ease-in-out;
   }
 
-  .menu {
-    @apply space-y-2 text-info;
+  .menu-nav {
+    @apply space-y-2;
   }
 
-  .menu-title {
-    @apply pb-3 font-semibold text-sm;
+  .menu-nav-title {
+    color: #1a202c;
+    @apply font-semibold py-2;
   }
 
-  .menu-item {
-    @apply flex items-center p-2 rounded-md cursor-pointer space-x-2;
+  .menu-nav-item {
+    @apply flex items-center p-2 rounded-md flex-row cursor-pointer space-x-2 text-gray-600;
     &:hover {
       @apply bg-gray-100 text-gray-900;
     }
-    .icon {
+    .menu-icon {
       @apply w-8 h-8 flex justify-center items-center rounded;
     }
   }
 
   .menu-item-active {
     @apply bg-gray-100 text-gray-900 font-semibold;
-    .icon {
+    .menu-icon {
       @apply bg-primary text-white rounded;
     }
   }
@@ -66,11 +58,16 @@ html {
   .title {
     @apply hidden;
   }
+
   .title-hr {
     @apply hidden;
   }
-  .menu-title {
+  .menu-nav-title {
     @apply hidden;
+  }
+
+  .menu-nav {
+    @apply space-y-0;
   }
 
   span {
@@ -83,10 +80,10 @@ html {
       opacity 0.3s ease-in-out;
   }
 
-  .menu-item {
+  .menu-nav-item {
     @apply flex items-center p-0 rounded-none cursor-pointer space-x-0;
-    .icon {
-      @apply w-12 h-12 flex justify-center items-center rounded-none;
+    .menu-icon {
+      @apply flex-1 h-12 flex justify-center items-center rounded-none;
     }
   }
 }

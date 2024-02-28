@@ -7,7 +7,6 @@ import { useMemo } from "react";
 
 function Item({ path, icon, title }) {
   const { pathname } = useLocation();
-  const isSmall = useMenu((state) => state.isSmall);
 
   const active = useMemo(() => {
     if (path === "/") {
@@ -17,9 +16,9 @@ function Item({ path, icon, title }) {
   }, [pathname, path]);
 
   return (
-    <Link to={path}>
-      <li className={`menu-item ${active ? "menu-item-active" : ""}`}>
-        <i className="icon">{icon}</i>
+    <Link to={path} className="block">
+      <li className={`menu-nav-item  ${active ? "menu-item-active" : ""}`}>
+        <i className="menu-icon">{icon}</i>
         <span>{title}</span>
       </li>
     </Link>
@@ -30,14 +29,14 @@ export default function Menu() {
   const isSmall = useMenu((state) => state.isSmall);
 
   return (
-    <div className={`nav ${isSmall ? "nav-samll" : ""}`}>
+    <div className={`page-menu ${isSmall ? "nav-samll" : ""}`}>
       <h1 className="title">亚斯说这里是标题</h1>
       <hr className="title-hr" />
-      <ul className="menu">
+      <ul className="menu-nav">
         <Item path="/" icon={<MdHome size={20} />} title="首页" />
         <Item path="/m1" icon={<MdDonutSmall size={20} />} title="模块1" />
         <Item path="/m2" icon={<MdDonutSmall size={20} />} title="模块2" />
-        <div className="menu-title">系统管理</div>
+        <div className="menu-nav-title">系统管理</div>
         <Item path="/system/dict" icon={<FaBook />} title="字典管理" />
         <Item path="/system/user" icon={<FaUser />} title="用户管理" />
         <Item path="/system/role" icon={<FaIdCard />} title="角色管理" />

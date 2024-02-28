@@ -6,20 +6,12 @@ import autoprefixer from "autoprefixer";
 import AutoRouterPlugin from "./plugins/auto-router";
 
 export default defineConfig({
-  root: "src",
   plugins: [
     react(),
     AutoRouterPlugin({
       separateFile: ["login.jsx"], // 单独层级文件
     }),
   ],
-  build: {
-    rollupOptions: {
-      input: {
-        index: resolve("src/index.html"),
-      },
-    },
-  },
   css: {
     postcss: {
       plugins: [tailwindcss, autoprefixer],
@@ -27,7 +19,7 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      "@/": "/",
+      "@/": "/src/",
     },
   },
   server: {

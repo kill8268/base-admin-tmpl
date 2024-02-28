@@ -1,5 +1,4 @@
 import useTitle from "@/store/useTitle";
-import { Fade } from "@chakra-ui/transition";
 import { useEffect } from "react";
 
 export default function Content({ children, className, title, dreadcrumb }) {
@@ -13,14 +12,12 @@ export default function Content({ children, className, title, dreadcrumb }) {
   useEffect(() => setDreadcrumb(dreadcrumb), [dreadcrumb, setDreadcrumb]);
 
   return (
-    <Fade
-      className={`flex-1 flex flex-col pb-4 px-4 overflow-auto ${
+    <div
+      className={`flex-1 flex flex-col p-4 pt-2 overflow-auto ${
         className || ""
       }`}
-      in={true}
-      timeout={500}
     >
       {children}
-    </Fade>
+    </div>
   );
 }
