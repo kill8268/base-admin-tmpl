@@ -3,6 +3,7 @@ import { RiMenuUnfoldFill, RiMenuFoldFill } from "react-icons/ri";
 import { MdSettings, MdOutlinePowerSettingsNew } from "react-icons/md";
 import useMenu from "@/store/useMenu";
 import useTitle from "@/store/useTitle";
+import useUserStore from "@/store/useUser.store";
 
 export default function Topbar() {
   const [isSmall, smallToggle] = useMenu((state) => [
@@ -14,6 +15,8 @@ export default function Topbar() {
     state.title,
     state.dreadcrumb,
   ]);
+
+  const info = useUserStore((state) => state.userInfo);
 
   return (
     <div className="h-16 px-4 py-1 mb-2 flex justify-between">
@@ -32,7 +35,7 @@ export default function Topbar() {
       </div>
       <div className="bg-white flex items-center justify-between shadow-lg rounded-full w-52 mt-1 h-full p-2">
         <div className="rounded-full flex items-center font-semibold justify-center h-full w-10 text-white bg-primary">
-          王
+          {info?.username.slice(0, 1)}
         </div>
         <button onClick={smallToggle}>
           {isSmall ? (

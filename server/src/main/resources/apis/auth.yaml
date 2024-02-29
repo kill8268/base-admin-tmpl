@@ -33,11 +33,36 @@ paths:
           content:
             application/json:
               schema:
+                type: object
                 properties:
-                  result:
+                  token:
                     type: string
-                  message:
-                    type: string
+                    description: token
+        "400":
+          description: 非法请求
+          content:
+            application/json:
+              schema:
+                $ref: "./common.yaml#/components/schemas/errorModel"
+        "500":
+          description: 服务器未知错误
+          content:
+            application/json:
+              schema:
+                $ref: "./common.yaml#/components/schemas/errorModel"
+  /auth/info:
+    get:
+      tags:
+        - auth
+      summary: 获取当前登录用户
+      operationId: getInfo
+      responses:
+        "200":
+          description: 查询用户成功
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/auth"
         "400":
           description: 非法请求
           content:
@@ -65,13 +90,9 @@ paths:
           content:
             application/json:
               schema:
-                properties:
-                  result:
-                    type: array
-                    items:
-                      $ref: "#/components/schemas/auth"
-                  message:
-                    type: string
+                type: array
+                items:
+                  $ref: "#/components/schemas/auth"
         "400":
           description: 非法请求
           content:

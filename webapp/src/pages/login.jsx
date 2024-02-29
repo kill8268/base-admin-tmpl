@@ -1,8 +1,10 @@
 import wavy from "@/assets/wavy.svg";
 import useUserStore from "@/store/useUser.store";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 
 export default function Login() {
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -11,12 +13,17 @@ export default function Login() {
 
   const login = useUserStore((state) => state.login);
 
+  const onSubmit = async (data) => {
+    await login(data);
+    navigate("/");
+  };
+
   return (
     <div className="flex h-screen">
       <div className="flex-grow bg-black"></div>
       <div className="flex-1 flex" style={{ background: `url(${wavy})` }}>
         <form
-          onSubmit={handleSubmit(login)}
+          onSubmit={handleSubmit(onSubmit)}
           className="max-w-xs m-auto space-y-2"
         >
           <h1 className="text-2xl font-bold">登录</h1>

@@ -3,14 +3,20 @@ import storage from "@/lib/storage";
 import { create } from "zustand";
 
 export default create((set) => ({
-  useInfo: null,
+  userInfo: null,
   initing: true,
   async login(body) {
-    const res = await fetcher("POST", "/base-admin-server/auth/sign-in", body);
-    storage().set(storage.KEY.TOKEN, res.result);
-    set({ token: res.result });
+    const { token } = await fetcher(
+      "POST",
+      "/base-admin-server/auth/sign-in",
+      body,
+    );
+    storage().set(storage.KEY.TOKEN, token);
+    set({ token });
   },
   async initUser() {
-    // TODO: 从 服务器 获取 用户数据。
+    const res = await fetcher("GET", "/base-admin-server/auth/info");
+    set({ userInfo: res, initing: false });
+    storage("object").set(storage.KEY.USER_INFO, res);
   },
 }));

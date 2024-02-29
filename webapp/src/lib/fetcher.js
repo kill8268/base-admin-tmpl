@@ -65,14 +65,16 @@ export default async function fetcher(method, url, data, timeout = 5000) {
   );
 
   const res = await Promise.race([fetchPromise, timeoutPromise]);
-  if (res.status === 401 || res.status === 400) {
+  if (res.status === 401) {
     const response = await res.json();
     const { message } = response;
     useFetchErrorStore.setError(res.status, message, "loginout");
     throw new Error(`[api][${res.status}]:登录状态变更`);
   }
   if (res.status >= 400) {
-    useFetchErrorStore.setError(res.status, "网路繁忙，请稍后再试", "http");
+    const response = await res.json();
+    const { message } = response;
+    useFetchErrorStore.setError(res.status, message, "http");
     throw new Error(`[api][${res.status}]:请求异常`);
   }
   const response = await res.json();

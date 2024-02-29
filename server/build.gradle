@@ -31,7 +31,7 @@ repositories {
 }
 
 application {
-  mainClassName = 'com.noobcat.admin.AdminApplication'
+    mainClass.set('com.noobcat.admin.AdminApplication')
 }
 
 dependencies {

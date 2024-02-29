@@ -7,7 +7,6 @@ import org.modelmapper.ModelMapper;
 import org.openapitools.api.AuthApi;
 import org.openapitools.model.Auth;
 import org.openapitools.model.AuthPage;
-import org.openapitools.model.GetList200Response;
 import org.openapitools.model.SignIn200Response;
 import org.openapitools.model.SignInRequest;
 
@@ -42,18 +41,24 @@ public class AuthController implements AuthApi {
     Auth auth = authService.getOne(Wrappers.<Auth>lambdaQuery()
         .eq(Auth::getUsername, signInRequest.getAuth()).or()
         .eq(Auth::getPhone, signInRequest.getAuth()));
-    SignIn200Response response = new SignIn200Response();
     if (auth == null) {
-      return ResponseEntity.badRequest().body(response.message("账号不存在"));
+      throw new IllegalArgumentException("账号不存在");
     }
     if (!auth.getEnable()) {
-      return ResponseEntity.badRequest().body(response.message("账号已禁用"));
+      throw new IllegalArgumentException("账号已禁用");
     }
     boolean isMatch = passwordEncoder.matches(signInRequest.getPassword(), auth.getPassword());
     if (!isMatch) {
-      return ResponseEntity.badRequest().body(response.message("密码错误"));
+      throw new IllegalArgumentException("密码错误");
     }
-    return ResponseEntity.ok(response.result(jwtUtil.generateToken(auth.getId())));
+    return ResponseEntity.ok(new SignIn200Response().token(jwtUtil.generateToken(auth.getId())));
+  }
+
+  @Override
+  public ResponseEntity<Auth> getInfo() {
+    Auth auth = authService.getById(UserContext.currentUser.get().getId());
+    auth.setPassword(null);
+    return ResponseEntity.ok(new ModelMapper().map(auth, Auth.class));
   }
 
   @Override
@@ -66,12 +71,13 @@ public class AuthController implements AuthApi {
   }
 
   @Override
-  public ResponseEntity<GetList200Response> getList(String username, String phone) {
+  public ResponseEntity<List<Auth>> getList(String username, String phone) {
     List<Auth> list = authService.list(
         Wrappers.<Auth>lambdaQuery()
             .like(!ObjectUtils.isEmpty(username), Auth::getUsername, username)
             .like(!ObjectUtils.isEmpty(phone), Auth::getPhone, phone));
-    return ResponseEntity.ok(new GetList200Response().result(list.stream().peek(auth -> auth.setPassword(null)).toList()) );
+    return ResponseEntity
+        .ok(list.stream().peek(auth -> auth.setPassword(null)).toList());
   }
 
   @Override

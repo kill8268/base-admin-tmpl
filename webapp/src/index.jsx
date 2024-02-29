@@ -12,7 +12,7 @@ const createRouter = (router) => {
     children: router.children?.map((child) => createRouter(child)),
   };
 };
-
+console.info(__routes);
 ReactDOM.createRoot(document.getElementById("root")).render(
   <RouterProvider router={createBrowserRouter(__routes.map(createRouter))} />,
 );

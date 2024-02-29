@@ -66,6 +66,7 @@ function storage(type = "string") {
  */
 storage.KEY = {
   TOKEN: "jt",
+  USER_INFO: "ui",
 };
 
 export default storage;

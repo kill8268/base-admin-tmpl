@@ -10,7 +10,9 @@ export default function Layout() {
     state.initing,
   ]);
 
-  useEffect(initUser, [initUser]);
+  useEffect(() => {
+    initUser();
+  }, [initUser]);
 
   return (
     !initing && (
