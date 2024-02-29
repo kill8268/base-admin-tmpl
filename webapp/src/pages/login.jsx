@@ -1,24 +1,45 @@
-import fetcher from "@/lib/fetcher";
+import wavy from "@/assets/wavy.svg";
+import useUserStore from "@/store/useUser.store";
+import { useForm } from "react-hook-form";
 
 export default function Login() {
-  const handleSubmit = async () => {
-    const res = await fetcher("POST", "/base-admin-server/auth/sign-in", {
-      auth: "admin",
-      password: "123456",
-    });
-    const data = await res.json();
-    console.log(data);
-  };
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
+  const login = useUserStore((state) => state.login);
 
   return (
     <div className="flex h-screen">
       <div className="flex-grow bg-black"></div>
-      <div className="flex-1 flex">
-        <form className="max-w-sm m-auto space-y-4">
+      <div className="flex-1 flex" style={{ background: `url(${wavy})` }}>
+        <form
+          onSubmit={handleSubmit(login)}
+          className="max-w-xs m-auto space-y-2"
+        >
           <h1 className="text-2xl font-bold">登录</h1>
-          <input className="input" placeholder="Basic usage" />
-          <input className="input" placeholder="Basic usage" type="password" />
-          <button onClick={handleSubmit} type="button">
+          <div>
+            <input
+              className="input input-bordered focus:input-primary w-full"
+              {...register("auth", { required: true })}
+              placeholder="用户名/手机号"
+            />
+            <span className={errors.auth ? "opacity-100" : "opacity-0"}>
+              This field is required
+            </span>
+            <input
+              className="input input-bordered focus:input-primary w-full"
+              {...register("password", { required: true })}
+              placeholder="密码"
+              type="password"
+            />
+            <span className={errors.password ? "opacity-100" : "opacity-0"}>
+              This field is required
+            </span>
+          </div>
+          <button className="btn btn-primary w-full" type="submit">
             登录
           </button>
         </form>
