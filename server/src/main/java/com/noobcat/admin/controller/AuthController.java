@@ -64,9 +64,17 @@ public class AuthController implements AuthApi {
   @Override
   public ResponseEntity<AuthPage> page(Integer current, Integer size, String username, String phone) {
     IPage<Auth> page = authService.page(new Page<Auth>(current, size),
-        Wrappers.<Auth>lambdaQuery()
-            .like(!ObjectUtils.isEmpty(username), Auth::getUsername, username)
-            .like(!ObjectUtils.isEmpty(phone), Auth::getPhone, phone));
+      Wrappers.<Auth>lambdaQuery()
+        .select(Auth::getId)
+        .select(Auth::getUsername)
+        .select(Auth::getPhone)
+        .select(Auth::getEnable)
+        .select(Auth::getIsAdmin)
+        .select(Auth::getCreatedAt)
+        .select(Auth::getUpdatedAt)
+        .apply("select name from auth", null)
+        .like(!ObjectUtils.isEmpty(username), Auth::getUsername, username)
+        .like(!ObjectUtils.isEmpty(phone), Auth::getPhone, phone));
     return ResponseEntity.ok(new ModelMapper().map(page, AuthPage.class));
   }
 
@@ -107,7 +115,6 @@ public class AuthController implements AuthApi {
   public ResponseEntity<Auth> updateAuth(String id, Auth auth) {
     auth.setId(id);
     authService.updateById(auth);
-    auth.setPassword(null);
     return ResponseEntity.created(URI.create("/auth/" + auth.getId())).build();
   }
 
