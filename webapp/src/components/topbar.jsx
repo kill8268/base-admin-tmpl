@@ -4,6 +4,7 @@ import { MdSettings, MdOutlinePowerSettingsNew } from "react-icons/md";
 import useMenu from "@/store/useMenu";
 import useTitle from "@/store/useTitle";
 import useUserStore from "@/store/useUser.store";
+import useThemeStore from "@/store/useTheme.store";
 
 export default function Topbar() {
   const [isSmall, smallToggle] = useMenu((state) => [
@@ -16,12 +17,17 @@ export default function Topbar() {
     state.dreadcrumb,
   ]);
 
+  const [theme, themeToggle] = useThemeStore((state) => [
+    state.theme,
+    state.toggle,
+  ]);
+
   const info = useUserStore((state) => state.userInfo);
 
   return (
-    <div className="h-16 px-4 py-1 mb-2 flex justify-between">
+    <div className="h-16 py-1 flex justify-between mt-4 ml-2 mr-4">
       <div>
-        <div className="breadcrumbs pt-0 pb-1">
+        <div className="breadcrumbs text-sm text-info pt-0 pb-1">
           <ul>
             {dreadcrumb &&
               dreadcrumb.map(({ name, href }) => (
@@ -31,27 +37,31 @@ export default function Topbar() {
               ))}
           </ul>
         </div>
-        <p className="text-2xl font-semibold">{title}</p>
+        <p className="text-lg font-semibold">{title}</p>
       </div>
-      <div className="bg-white flex items-center justify-between shadow-lg rounded-full w-52 mt-1 h-full p-2">
-        <div className="rounded-full flex items-center font-semibold justify-center h-full w-10 text-white bg-primary">
+      <div className="bg-base-100 flex items-center justify-between shadow-lg rounded-full w-56 h-12 p-2 px-4">
+        <div className="rounded-full flex items-center font-semibold justify-center h-full w-8 text-white bg-primary">
           {info?.username.slice(0, 1)}
         </div>
         <button onClick={smallToggle}>
           {isSmall ? (
-            <RiMenuUnfoldFill size={25} className="text-gray-600" />
+            <RiMenuUnfoldFill size={25} className="text-info" />
           ) : (
-            <RiMenuFoldFill size={25} className="text-gray-600" />
+            <RiMenuFoldFill size={25} className="text-info" />
+          )}
+        </button>
+        <button onClick={themeToggle}>
+          {theme === "light" ? (
+            <IoMdMoon size={25} className="text-info" />
+          ) : (
+            <IoMdMoon size={25} className="text-warning" />
           )}
         </button>
         <button>
-          <IoMdMoon size={25} className="text-gray-600" />
+          <MdSettings size={25} className="text-info" />
         </button>
         <button>
-          <MdSettings size={25} className="text-gray-600" />
-        </button>
-        <button>
-          <MdOutlinePowerSettingsNew size={25} className="text-gray-600" />
+          <MdOutlinePowerSettingsNew size={25} className="text-info" />
         </button>
       </div>
     </div>

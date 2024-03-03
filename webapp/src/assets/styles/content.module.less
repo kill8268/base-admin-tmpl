@@ -1,0 +1,27 @@
+.content {
+  @apply flex-1 flex flex-col overflow-auto;
+  :global {
+    .card {
+      @apply bg-base-100 ml-2 mb-4 mr-4 shadow flex-1 overflow-auto;
+    }
+    .card-loading {
+      @apply absolute w-full h-full flex opacity-80;
+      span {
+        @apply loading m-auto loading-dots loading-lg text-primary;
+      }
+    }
+    .table-box {
+      @apply flex flex-col flex-1 relative overflow-auto;
+    }
+    table {
+      table-layout: fixed;
+      @apply table-pin-rows table-pin-cols border-collapse;
+      th {
+        @apply bg-base-200;
+      }
+    }
+    .paginate {
+      @apply py-2 px-4 flex justify-between items-center gap-8 font-semibold border-base-300 border-t;
+    }
+  }
+}

@@ -1,0 +1,79 @@
+.page-menu {
+  transition: width 0.3s ease;
+  @apply w-60 text-base overflow-x-hidden card bg-base-100 shadow-lg my-4 ml-4 mr-2 px-4 overflow-auto;
+
+  :global {
+    .title {
+      @apply text-xl font-semibold text-center pt-6;
+    }
+    .title-hr {
+      @apply my-4;
+    }
+    span {
+      visibility: visible;
+      opacity: 1;
+      transition:
+        visibility 0s,
+        opacity 0.3s ease-in-out;
+    }
+    .menu-nav {
+      @apply space-y-2;
+    }
+
+    .menu-nav-title {
+      color: #1a202c;
+      @apply font-semibold px-6 text-info text-lg;
+    }
+
+    .menu-nav-item {
+      @apply flex items-center p-2 px-6 rounded-md flex-row cursor-pointer space-x-4 text-gray-600;
+      &:hover {
+        @apply bg-gray-100 text-gray-900;
+      }
+      .menu-icon {
+        @apply w-8 h-8 flex justify-center items-center rounded shadow-lg bg-base-200 text-gray-600;
+      }
+    }
+
+    .menu-item-active {
+      @apply text-gray-900 font-semibold;
+      .menu-icon {
+        background-image: linear-gradient(to top left, #2c7a7b, #63e6be);
+        @apply text-white rounded;
+      }
+    }
+  }
+}
+
+.page-menu-samll {
+  @apply w-12 bg-white shadow-lg p-0;
+  :global {
+    .title {
+      @apply hidden;
+    }
+    .title-hr {
+      @apply hidden;
+    }
+    .menu-nav-title {
+      @apply hidden;
+    }
+    .menu-nav {
+      @apply space-y-0;
+    }
+    span {
+      width: 0;
+      height: 0;
+      visibility: hidden;
+      opacity: 0;
+      transition:
+        visibility 0s,
+        opacity 0.3s ease-in-out;
+    }
+    .menu-nav-item {
+      @apply flex items-center p-0 rounded-none cursor-pointer space-x-0;
+      .menu-icon {
+        @apply flex-1 h-12 flex bg-transparent shadow-none justify-center items-center rounded-none;
+      }
+    }
+  }
+}

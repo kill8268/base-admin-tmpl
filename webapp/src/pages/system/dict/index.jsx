@@ -1,16 +1,6 @@
 import Content from "@/components/content";
 import Paginate from "react-paginate";
 import { FaPlus, FaRedo, FaSearch } from "react-icons/fa";
-import Table from "@/components/table";
-
-const data = Array.from({ length: 100 }, (_, index) => ({
-  id: index,
-  name: `Person ${index}`,
-  age: Math.floor(Math.random() * 30) + 20,
-  status: ["Single", "Relationship", "Complicated"][
-    Math.floor(Math.random() * 3)
-  ],
-}));
 
 export default function Dict() {
   return (
@@ -32,27 +22,7 @@ export default function Dict() {
             </button>
           </form>
         </div>
-        <div className="overflow-x-auto flex-1">
-          <Table
-            className="table table-pin-rows table-pin-cols"
-            data={data}
-            columns={[
-              {
-                title: "Name",
-                accessor: "name",
-                sticky: true,
-              },
-              {
-                title: "Age",
-                accessor: "age",
-              },
-              {
-                title: "Status",
-                accessor: "status",
-              },
-            ]}
-          />
-        </div>
+        <div className="overflow-x-auto flex-1"></div>
         <div className="py-2 px-4 flex justify-between gap-8 font-semibold">
           <div className="space-x-2">
             <span>所有记录</span>

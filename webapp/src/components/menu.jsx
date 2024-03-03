@@ -1,9 +1,10 @@
-import { MdHome, MdDonutSmall } from "react-icons/md";
-import { FaUser, FaBook, FaIdCard, FaBookmark } from "react-icons/fa";
+import { useMemo } from "react";
 import useMenu from "@/store/useMenu";
 import { Link } from "react-router-dom";
 import { useLocation } from "react-router-dom";
-import { useMemo } from "react";
+import { MdHome, MdDonutSmall } from "react-icons/md";
+import { FaUser, FaBook, FaIdCard, FaBookmark } from "react-icons/fa";
+import styles from "@/assets/styles/menu.module.less";
 
 function Item({ path, icon, title }) {
   const { pathname } = useLocation();
@@ -29,7 +30,11 @@ export default function Menu() {
   const isSmall = useMenu((state) => state.isSmall);
 
   return (
-    <div className={`page-menu ${isSmall ? "nav-samll" : ""}`}>
+    <div
+      className={`${styles["page-menu"]} ${
+        isSmall ? styles["page-menu-samll"] : ""
+      }`}
+    >
       <h1 className="title">亚斯说这里是标题</h1>
       <hr className="title-hr" />
       <ul className="menu-nav">
