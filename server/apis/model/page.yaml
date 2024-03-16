@@ -1,0 +1,11 @@
+type: object
+properties:
+  total:
+    type: integer
+    format: int64
+  size:
+    type: integer
+    format: int32
+  current:
+    type: integer
+    format: int32

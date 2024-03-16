@@ -1,0 +1,5 @@
+description: 非法请求
+content:
+  application/json:
+    schema:
+      $ref: "./error.yaml"

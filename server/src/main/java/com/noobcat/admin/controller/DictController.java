@@ -24,7 +24,7 @@ public class DictController implements DictApi {
   private DictService dictService;
 
   @Override
-  public ResponseEntity<DictPage> page(Integer current, Integer size, String name) {
+  public ResponseEntity<DictPage> page(Integer size, Integer current, String name) {
     IPage<Dict> page = dictService.page(new Page<Dict>(current, size),
         Wrappers.<Dict>lambdaQuery()
             .like(!ObjectUtils.isEmpty(name), Dict::getName, name)
@@ -45,12 +45,14 @@ public class DictController implements DictApi {
     return ResponseEntity.ok(dictService.getById(id));
   }
 
+  @SuppressWarnings("null")
   @Override
   public ResponseEntity<Dict> createDict(Dict dict) {
     dictService.save(dict);
     return ResponseEntity.created(URI.create("/dict/" + dict.getId())).build();
   }
 
+  @SuppressWarnings("null")
   @Override
   public ResponseEntity<Dict> updateDict(String id, Dict dict) {
     dict.setId(id);

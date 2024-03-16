@@ -1,0 +1,42 @@
+get:
+  tags:
+    - dict
+  operationId: getList
+  summary: 获取系统字典列表
+  parameters:
+    - $ref: "./dict/parameter.yaml#/pid"
+  responses:
+    "200":
+      description: 查询系统字典列表成功
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: "../model/dict.yaml"
+    "401":
+      $ref: "../model/401Response.yaml"
+    "500":
+      $ref: "../model/500Response.yaml"
+post:
+  tags:
+    - dict
+  operationId: createDict
+  summary: 创建字典
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: "../model/dict.yaml"
+  responses:
+    "200":
+      description: 创建字典成功
+      content:
+        application/json:
+          schema:
+            $ref: "../model/dict.yaml"
+    "401":
+      $ref: "../model/401Response.yaml"
+    "500":
+      $ref: "../model/500Response.yaml"

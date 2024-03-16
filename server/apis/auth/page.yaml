@@ -1,0 +1,21 @@
+get:
+  tags:
+    - auth
+  operationId: page
+  summary: 用户分页查询
+  parameters:
+    - $ref: "./parameter.yaml#/size"
+    - $ref: "./parameter.yaml#/current"
+    - $ref: "./auth/parameter.yaml#/name"
+    - $ref: "./auth/parameter.yaml#/phone"
+  responses:
+    "200":
+      description: 查询用户成功
+      content:
+        application/json:
+          schema:
+            $ref: "../model/authPage.yaml"
+    "401":
+      $ref: "../model/401Response.yaml"
+    "500":
+      $ref: "../model/500Response.yaml"

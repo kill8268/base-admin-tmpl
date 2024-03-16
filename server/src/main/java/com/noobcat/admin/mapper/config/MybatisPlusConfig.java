@@ -1,4 +1,4 @@
-package com.noobcat.admin.configuration;
+package com.noobcat.admin.mapper.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

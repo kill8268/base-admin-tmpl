@@ -1,0 +1,37 @@
+openapi: 3.0.1
+info:
+  title: base-admin-server
+  description: base admin server
+  contact:
+    name: wangyx
+  version: 0.0.1-SNAPSHOT
+servers:
+  - url: http://base-admin-server/base-admin-server
+tags:
+  - name: auth
+    description: 系统用户
+  - name: dict
+    description: 系统字典
+paths:
+  # auth api
+  /auth:
+    $ref: "./auth/listAndAdd.yaml"
+  /auth/page:
+    $ref: "./auth/page.yaml"
+  /auth/info:
+    $ref: "./auth/info.yaml"
+  /auth/{id}:
+    $ref: "./auth/getAndUpdate.yaml"
+  /auth/sign-in:
+    $ref: "./auth/sign-in.yaml"
+  /auth/{id}/toggleEnable:
+    $ref: "./auth/toggleEnable.yaml"
+  # dict api
+  /dict:
+    $ref: "./dict/listAndAdd.yaml"
+  /dict/page:
+    $ref: "./dict/page.yaml"
+  /dict/{id}:
+    $ref: "./dict/getAndUpdate.yaml"
+  /dict/{id}/toggleEnable:
+    $ref: "./dict/toggleEnable.yaml"

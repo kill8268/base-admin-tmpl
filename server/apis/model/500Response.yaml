@@ -1,0 +1,5 @@
+description: 服务器未知错误
+content:
+  application/json:
+    schema:
+      $ref: "./error.yaml"

@@ -1,0 +1,21 @@
+id:
+  name: id
+  in: path
+  description: 用户id
+  required: true
+  schema:
+    type: string
+pid:
+  name: pid
+  in: query
+  description: 字典PID
+  required: false
+  schema:
+    type: string
+name:
+  name: name
+  in: query
+  description: 字典名称
+  required: false
+  schema:
+    type: string

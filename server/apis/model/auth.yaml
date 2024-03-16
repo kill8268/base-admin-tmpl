@@ -1,0 +1,19 @@
+allOf:
+  - $ref: "./base.yaml"
+  - type: object
+    required:
+      - phone
+      - name
+      - password
+    properties:
+      phone:
+        type: string
+        description: 电话号码
+      username:
+        type: string
+        description: 用户名称
+      password:
+        type: string
+        description: 密码
+      isAdmin:
+        type: boolean

@@ -1,0 +1,43 @@
+get:
+  tags:
+    - auth
+  summary: 获取用户列表
+  operationId: getList
+  parameters:
+    - $ref: "./auth/parameter.yaml#/name"
+    - $ref: "./auth/parameter.yaml#/phone"
+  responses:
+    "200":
+      description: 查询用户列表成功
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: "../model/auth.yaml"
+    "401":
+      $ref: "../model/401Response.yaml"
+    "500":
+      $ref: "../model/500Response.yaml"
+post:
+  tags:
+    - auth
+  summary: 创建用户
+  operationId: createAuth
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: "../model/auth.yaml"
+  responses:
+    "201":
+      description: 创建用户成功
+      content:
+        application/json:
+          schema:
+            $ref: "../model/auth.yaml"
+    "401":
+      $ref: "../model/401Response.yaml"
+    "500":
+      $ref: "../model/500Response.yaml"

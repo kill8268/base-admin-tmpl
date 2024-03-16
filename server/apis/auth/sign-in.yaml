@@ -1,0 +1,30 @@
+post:
+  tags:
+    - auth
+  summary: 登录
+  operationId: signIn
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          properties:
+            auth:
+              type: string
+            password:
+              type: string
+  responses:
+    "200":
+      description: 登录成功
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              token:
+                type: string
+                description: token
+    "401":
+      $ref: "../model/401Response.yaml"
+    "500":
+      $ref: "../model/500Response.yaml"

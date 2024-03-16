@@ -62,27 +62,26 @@ public class AuthController implements AuthApi {
   }
 
   @Override
-  public ResponseEntity<AuthPage> page(Integer current, Integer size, String username, String phone) {
+  public ResponseEntity<AuthPage> page(Integer size, Integer current, String name, String phone) {
     IPage<Auth> page = authService.page(new Page<Auth>(current, size),
-      Wrappers.<Auth>lambdaQuery()
-        .select(Auth::getId)
-        .select(Auth::getUsername)
-        .select(Auth::getPhone)
-        .select(Auth::getEnable)
-        .select(Auth::getIsAdmin)
-        .select(Auth::getCreatedAt)
-        .select(Auth::getUpdatedAt)
-        .apply("select name from auth", null)
-        .like(!ObjectUtils.isEmpty(username), Auth::getUsername, username)
-        .like(!ObjectUtils.isEmpty(phone), Auth::getPhone, phone));
+        Wrappers.<Auth>lambdaQuery()
+            .select(Auth::getId)
+            .select(Auth::getUsername)
+            .select(Auth::getPhone)
+            .select(Auth::getEnable)
+            .select(Auth::getIsAdmin)
+            .select(Auth::getCreatedAt)
+            .select(Auth::getUpdatedAt)
+            .like(!ObjectUtils.isEmpty(name), Auth::getUsername, name)
+            .like(!ObjectUtils.isEmpty(phone), Auth::getPhone, phone));
     return ResponseEntity.ok(new ModelMapper().map(page, AuthPage.class));
   }
 
   @Override
-  public ResponseEntity<List<Auth>> getList(String username, String phone) {
+  public ResponseEntity<List<Auth>> getList(String name, String phone) {
     List<Auth> list = authService.list(
         Wrappers.<Auth>lambdaQuery()
-            .like(!ObjectUtils.isEmpty(username), Auth::getUsername, username)
+            .like(!ObjectUtils.isEmpty(name), Auth::getUsername, name)
             .like(!ObjectUtils.isEmpty(phone), Auth::getPhone, phone));
     return ResponseEntity
         .ok(list.stream().peek(auth -> auth.setPassword(null)).toList());
@@ -95,6 +94,7 @@ public class AuthController implements AuthApi {
     return ResponseEntity.ok(auth);
   }
 
+  @SuppressWarnings("null")
   @Override
   public ResponseEntity<Auth> createAuth(Auth auth) {
     auth.setId(null);
@@ -111,6 +111,7 @@ public class AuthController implements AuthApi {
     return ResponseEntity.created(URI.create("/auth/" + auth.getId())).build();
   }
 
+  @SuppressWarnings("null")
   @Override
   public ResponseEntity<Auth> updateAuth(String id, Auth auth) {
     auth.setId(id);

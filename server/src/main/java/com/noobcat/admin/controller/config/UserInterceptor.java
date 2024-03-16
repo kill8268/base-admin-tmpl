@@ -1,4 +1,4 @@
-package com.noobcat.admin.interceptor;
+package com.noobcat.admin.controller.config;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;

@@ -1,0 +1,23 @@
+type: object
+properties:
+  id:
+    type: string
+    format: int64
+    description: id
+  enable:
+    type: boolean
+    description: 启用
+  createdBy:
+    type: string
+    description: 创建人
+  createdAt:
+    type: string
+    format: date-time
+    description: 创建时间
+  updatedBy:
+    type: string
+    description: 修改人
+  updatedAt:
+    type: string
+    format: date-time
+    description: 修改时间

@@ -1,0 +1,21 @@
+id:
+  name: id
+  in: path
+  description: 用户id
+  required: true
+  schema:
+    type: string
+name:
+  name: name
+  in: query
+  description: 用户名称
+  required: false
+  schema:
+    type: string
+phone:
+  name: phone
+  in: query
+  description: 手机号码
+  required: false
+  schema:
+    type: string

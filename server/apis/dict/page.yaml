@@ -1,0 +1,20 @@
+get:
+  tags:
+    - dict
+  operationId:  page
+  summary: page
+  parameters:
+    - $ref: "./parameter.yaml#/size"
+    - $ref: "./parameter.yaml#/current"
+    - $ref: "./dict/parameter.yaml#/name"
+  responses:
+    "200":
+      description: 查询系统字典成功
+      content:
+        application/json:
+          schema:
+            $ref: "../model/dictPage.yaml"
+    "401":
+      $ref: "../model/401Response.yaml"
+    "500":
+      $ref: "../model/500Response.yaml"

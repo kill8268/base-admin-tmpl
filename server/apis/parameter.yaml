@@ -1,0 +1,16 @@
+current:
+  name: current
+  in: query
+  description: 当前页
+  required: true
+  schema:
+    type: integer
+    format: int32
+size:
+  name: size
+  in: query
+  description: 每页显示条数
+  required: true
+  schema:
+    type: integer
+    format: int32

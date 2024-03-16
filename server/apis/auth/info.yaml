@@ -1,0 +1,16 @@
+get:
+  tags:
+    - auth
+  summary: 获取当前登录用户
+  operationId: getInfo
+  responses:
+    "201":
+      description: 更新用户成功
+      content:
+        application/json:
+          schema:
+            $ref: "../model/auth.yaml"
+    "401":
+      $ref: "../model/401Response.yaml"
+    "500":
+      $ref: "../model/500Response.yaml"

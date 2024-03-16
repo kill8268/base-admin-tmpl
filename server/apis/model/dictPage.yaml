@@ -1,0 +1,8 @@
+allOf:
+  - $ref: "./page.yaml"
+  - type: object
+    properties:
+      records:
+        type: array
+        items:
+          $ref: "./dict.yaml"
