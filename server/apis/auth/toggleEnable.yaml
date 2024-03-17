@@ -2,7 +2,7 @@ patch:
   tags:
     - auth
   summary: 更改用户状态
-  operationId: toggleEnable
+  operationId: authToggleEnable
   parameters:
     - $ref: "./auth/parameter.yaml#/id"
   responses:

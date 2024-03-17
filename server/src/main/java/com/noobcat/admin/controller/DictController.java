@@ -24,7 +24,7 @@ public class DictController implements DictApi {
   private DictService dictService;
 
   @Override
-  public ResponseEntity<DictPage> page(Integer size, Integer current, String name) {
+  public ResponseEntity<DictPage> dictPage(Integer size, Integer current, String name) {
     IPage<Dict> page = dictService.page(new Page<Dict>(current, size),
         Wrappers.<Dict>lambdaQuery()
             .like(!ObjectUtils.isEmpty(name), Dict::getName, name)
@@ -33,7 +33,7 @@ public class DictController implements DictApi {
   }
 
   @Override
-  public ResponseEntity<List<Dict>> getList(String pid) {
+  public ResponseEntity<List<Dict>> getDictList(String pid) {
     return ResponseEntity
         .ok(dictService.list(
             Wrappers.<Dict>lambdaQuery()
@@ -61,7 +61,7 @@ public class DictController implements DictApi {
   }
 
   @Override
-  public ResponseEntity<Void> toggleEnable(String type) {
+  public ResponseEntity<Void> dictToggleEnable(String type) {
     return ResponseEntity.ok(null);
   }
 }

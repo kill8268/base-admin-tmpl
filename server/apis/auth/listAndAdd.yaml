@@ -2,7 +2,7 @@ get:
   tags:
     - auth
   summary: 获取用户列表
-  operationId: getList
+  operationId: getAuthList
   parameters:
     - $ref: "./auth/parameter.yaml#/name"
     - $ref: "./auth/parameter.yaml#/phone"

@@ -1,7 +1,7 @@
 patch:
   tags:
     - dict
-  operationId: toggleEnable
+  operationId: dictToggleEnable
   summary: 根据ID修改系统字典状态
   parameters:
     - $ref: "./dict/parameter.yaml#/id"

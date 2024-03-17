@@ -22,3 +22,9 @@ springdoc:
   version: "0.0.1-SNAPSHOT"
   swagger-ui:
     enabled: true
+    groups-order: DESC
+    operationsSorter: method
+    display-request-duration: true
+    defaultModelRendering: model
+    defaultModelExpandDepth: 4
+    defaultModelsExpandDepth: 4

@@ -1,11 +1,11 @@
 get:
   tags:
     - auth
-  operationId: page
+  operationId: authPage
   summary: 用户分页查询
   parameters:
-    - $ref: "./parameter.yaml#/size"
-    - $ref: "./parameter.yaml#/current"
+    - $ref: "../parameter.yaml#/size"
+    - $ref: "../parameter.yaml#/current"
     - $ref: "./auth/parameter.yaml#/name"
     - $ref: "./auth/parameter.yaml#/phone"
   responses:

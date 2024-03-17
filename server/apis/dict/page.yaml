@@ -1,11 +1,11 @@
 get:
   tags:
     - dict
-  operationId:  page
+  operationId: dictPage
   summary: page
   parameters:
-    - $ref: "./parameter.yaml#/size"
-    - $ref: "./parameter.yaml#/current"
+    - $ref: "../parameter.yaml#/size"
+    - $ref: "../parameter.yaml#/current"
     - $ref: "./dict/parameter.yaml#/name"
   responses:
     "200":

@@ -62,7 +62,7 @@ public class AuthController implements AuthApi {
   }
 
   @Override
-  public ResponseEntity<AuthPage> page(Integer size, Integer current, String name, String phone) {
+  public ResponseEntity<AuthPage> authPage(Integer size, Integer current, String name, String phone) {
     IPage<Auth> page = authService.page(new Page<Auth>(current, size),
         Wrappers.<Auth>lambdaQuery()
             .select(Auth::getId)
@@ -78,7 +78,7 @@ public class AuthController implements AuthApi {
   }
 
   @Override
-  public ResponseEntity<List<Auth>> getList(String name, String phone) {
+  public ResponseEntity<List<Auth>> getAuthList(String name, String phone) {
     List<Auth> list = authService.list(
         Wrappers.<Auth>lambdaQuery()
             .like(!ObjectUtils.isEmpty(name), Auth::getUsername, name)
@@ -120,7 +120,7 @@ public class AuthController implements AuthApi {
   }
 
   @Override
-  public ResponseEntity<Auth> toggleEnable(String id) {
+  public ResponseEntity<Auth> authToggleEnable(String id) {
     Auth auth = authService.getById(id);
     auth.setEnable(!auth.getEnable());
     authService.updateById(auth);

@@ -1,7 +1,7 @@
 get:
   tags:
     - dict
-  operationId: getList
+  operationId: getDictList
   summary: 获取系统字典列表
   parameters:
     - $ref: "./dict/parameter.yaml#/pid"

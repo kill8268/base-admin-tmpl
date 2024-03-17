@@ -1,6 +1,8 @@
 allOf:
   - $ref: "./base.yaml"
   - type: object
+    xml:
+      name: "auth"
     required:
       - phone
       - name

@@ -23,11 +23,8 @@ public class ApiConfig implements WebMvcConfigurer {
   public void addInterceptors(InterceptorRegistry registry) {
     registry
         .addInterceptor(new UserInterceptor(jwtUtil, authService))
-        .addPathPatterns("/**")
+        .excludePathPatterns("/auth/sign-in")
         .excludePathPatterns("/swagger-ui/*")
-        .excludePathPatterns("/v3/api-docs")
-        .excludePathPatterns("/v3/api-docs/*")
-        .excludePathPatterns("/auth/sign-in");
-    ;
+        .excludePathPatterns("/v3/api-docs/*");
   }
 }

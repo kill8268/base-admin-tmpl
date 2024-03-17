@@ -3,6 +3,11 @@ get:
     - auth
   summary: 获取单个用户
   operationId: getAuth
+  security:
+    - petstore_auth:
+        - "write:pets"
+        - "read:pets"
+    - BearerAuth: []
   parameters:
     - $ref: "./auth/parameter.yaml#/id"
   responses:

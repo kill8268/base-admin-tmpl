@@ -3,6 +3,7 @@ post:
     - auth
   summary: 登录
   operationId: signIn
+  security: []
   requestBody:
     required: true
     content:
