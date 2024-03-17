@@ -6,6 +6,7 @@ get:
   parameters:
     - $ref: "../parameter.yaml#/size"
     - $ref: "../parameter.yaml#/current"
+    - $ref: "../parameter.yaml#/DeviceID"
     - $ref: "./auth/parameter.yaml#/name"
     - $ref: "./auth/parameter.yaml#/phone"
   responses:

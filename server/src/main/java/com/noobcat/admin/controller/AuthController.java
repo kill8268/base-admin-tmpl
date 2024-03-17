@@ -65,13 +65,6 @@ public class AuthController implements AuthApi {
   public ResponseEntity<AuthPage> authPage(Integer size, Integer current, String name, String phone) {
     IPage<Auth> page = authService.page(new Page<Auth>(current, size),
         Wrappers.<Auth>lambdaQuery()
-            .select(Auth::getId)
-            .select(Auth::getUsername)
-            .select(Auth::getPhone)
-            .select(Auth::getEnable)
-            .select(Auth::getIsAdmin)
-            .select(Auth::getCreatedAt)
-            .select(Auth::getUpdatedAt)
             .like(!ObjectUtils.isEmpty(name), Auth::getUsername, name)
             .like(!ObjectUtils.isEmpty(phone), Auth::getPhone, phone));
     return ResponseEntity.ok(new ModelMapper().map(page, AuthPage.class));
@@ -83,8 +76,7 @@ public class AuthController implements AuthApi {
         Wrappers.<Auth>lambdaQuery()
             .like(!ObjectUtils.isEmpty(name), Auth::getUsername, name)
             .like(!ObjectUtils.isEmpty(phone), Auth::getPhone, phone));
-    return ResponseEntity
-        .ok(list.stream().peek(auth -> auth.setPassword(null)).toList());
+    return ResponseEntity.ok(list);
   }
 
   @Override

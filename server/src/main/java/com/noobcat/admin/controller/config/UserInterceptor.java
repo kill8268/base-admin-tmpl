@@ -35,8 +35,6 @@ public class UserInterceptor implements HandlerInterceptor {
 
   @Override
   public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-    System.out.println("UserInterceptor.preHandle()");
-    System.out.println(request.getRequestURI());
     // 从请求头中获取JWT令牌
     String token = request.getHeader("Authorization");
     // 使用JwtUtil验证令牌
@@ -45,7 +43,7 @@ public class UserInterceptor implements HandlerInterceptor {
       return false;
     }
     try {
-      Auth auth = authService.getById(jwtUtil.extractUserId(token));
+      Auth auth = authService.getById(jwtUtil.extractUserId(token.split(" ")[1]));
       if (auth == null) {
         setEerrorResponse(response, "{\"message\": \"非法访问\"}");
         return false;
