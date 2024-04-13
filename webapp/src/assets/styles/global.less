@@ -16,10 +16,18 @@ body {
 }
 
 .fade-exit {
-  opacity: 1;
+  opacity: 0;
 }
 
 .fade-exit-active {
   opacity: 0;
   transition: opacity 0.5s ease-in-out;
+}
+
+.modal-overlay {
+  @apply fixed inset-0 z-50 bg-black bg-opacity-50 flex;
+}
+
+.modal-body {
+  @apply modal-box m-auto flex flex-col gap-4;
 }

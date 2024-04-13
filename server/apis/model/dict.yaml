@@ -6,7 +6,7 @@ allOf:
       - name
       - value
     properties:
-      pid:
+      parent:
         type: string
         description: 父级id
       name:

@@ -1,7 +1,7 @@
-id:
-  name: id
+uuid:
+  name: uuid
   in: path
-  description: 用户id
+  description: 用户uuid
   required: true
   schema:
     type: string

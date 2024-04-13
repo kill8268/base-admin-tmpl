@@ -1,22 +1,30 @@
 type: object
 properties:
   id:
-    type: string
-    format: int64
+    type: integer
     description: id
+  uuid:
+    type: string
+    description: uuid
   enable:
     type: boolean
     description: 启用
   createdBy:
     type: string
-    description: 创建人
+    description: 创建人id
+  createdByName:
+    type: string
+    description: 创建人name
   createdAt:
     type: string
     format: date-time
     description: 创建时间
   updatedBy:
     type: string
-    description: 修改人
+    description: 修改人id
+  updatedByName:
+    type: string
+    description: 修改人name
   updatedAt:
     type: string
     format: date-time

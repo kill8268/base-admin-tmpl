@@ -1,12 +1,12 @@
-id:
-  name: id
+uuid:
+  name: uuid
   in: path
-  description: 用户id
+  description: 字典id
   required: true
   schema:
     type: string
-pid:
-  name: pid
+parent:
+  name: parent
   in: query
   description: 字典PID
   required: false

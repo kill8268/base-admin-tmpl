@@ -1,8 +1,8 @@
 package com.noobcat.admin.context;
 
 import java.lang.ThreadLocal;
-import org.openapitools.model.Auth;
+import org.openapitools.model.User;
 
 public class UserContext {
-  public static final ThreadLocal<Auth> currentUser = new ThreadLocal<>();
+  public static final ThreadLocal<User> currentUser = new ThreadLocal<>();
 }

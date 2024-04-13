@@ -8,7 +8,7 @@ function ColumnComponent({ type = "text", value, category }) {
           type="checkbox"
           defaultChecked={value}
           readOnly
-          className="checkbox checkbox-sm checkbox-primary"
+          className="checkbox checkbox-sm checkbox-primary pointer-events-none"
         />
       );
     case "date":
@@ -76,7 +76,7 @@ function Table({ data, children, className }) {
  * @returns {ReactNode} 返回React节点
  */
 Table.Column = function Column({ title, className }) {
-  return <th className={className}>{title}</th>;
+  return <th className={className || ""}>{title}</th>;
 };
 
 export default Table;

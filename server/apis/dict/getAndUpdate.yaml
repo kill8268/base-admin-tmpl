@@ -4,7 +4,7 @@ get:
   operationId: getDict
   summary: 根据ID获取系统字典
   parameters:
-    - $ref: "./dict/parameter.yaml#/id"
+    - $ref: "./dict/parameter.yaml#/uuid"
   responses:
     "200":
       description: 查询系统字典成功
@@ -22,7 +22,7 @@ put:
   operationId: updateDict
   summary: 根据ID更新系统字典
   parameters:
-    - $ref: "./dict/parameter.yaml#/id"
+    - $ref: "./dict/parameter.yaml#/uuid"
   requestBody:
     required: true
     content:

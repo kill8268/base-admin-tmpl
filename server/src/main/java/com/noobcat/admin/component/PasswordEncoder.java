@@ -22,7 +22,6 @@ public class PasswordEncoder {
   }
 
   public boolean matches(String rawPassword, String encodedPassword) {
-    System.out.println(encode(rawPassword));
     return encodedPassword.equals(encode(rawPassword));
   }
 }

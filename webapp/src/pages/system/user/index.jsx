@@ -1,10 +1,12 @@
 import Content from "@/components/content";
+import AuthModal from "@/components/modals/auth.modal";
 import Table from "@/components/table";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { FaPlus, FaRedo, FaSearch } from "react-icons/fa";
 import useSWR from "swr";
 
 export default function User() {
+  const ref = useRef();
   const [param, setParam] = useState({
     current: 1,
     size: 10,
@@ -23,7 +25,10 @@ export default function User() {
     >
       <Content.Card>
         <div className="flex flex-wrap justify-between py-3 p-4 gap-4">
-          <button className="btn btn-sm px-2 btn-primary">
+          <button
+            className="btn btn-sm px-2 btn-primary"
+            onClick={() => ref.current.open()}
+          >
             <FaPlus />
           </button>
           <form className="flex flex-wrap justify-end gap-4">
@@ -47,9 +52,9 @@ export default function User() {
           <Table.Column title="电话号" name="phone" />
           <Table.Column title="角色" name="rol" />
           <Table.Column title="启用" name="enable" type="boolean" />
-          <Table.Column title="创建人" name="createdBy" />
+          <Table.Column title="创建人" name="createdByName" />
           <Table.Column title="创建时间" name="createdAt" type="datetime" />
-          <Table.Column title="修改人" name="updatedBy" />
+          <Table.Column title="修改人" name="updatedByName" />
           <Table.Column title="修改时间" name="updatedAt" type="datetime" />
           <Table.Column
             title="操作"
@@ -60,6 +65,7 @@ export default function User() {
           />
         </Content.PageTable>
       </Content.Card>
+      <AuthModal ref={ref} />
     </Content>
   );
 }

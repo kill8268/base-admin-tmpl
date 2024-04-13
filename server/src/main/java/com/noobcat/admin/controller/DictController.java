@@ -28,36 +28,35 @@ public class DictController implements DictApi {
     IPage<Dict> page = dictService.page(new Page<Dict>(current, size),
         Wrappers.<Dict>lambdaQuery()
             .like(!ObjectUtils.isEmpty(name), Dict::getName, name)
-            .eq(Dict::getPid, "0"));
+            .eq(Dict::getParent, "0"));
     return ResponseEntity.ok(new ModelMapper().map(page, DictPage.class));
   }
 
   @Override
-  public ResponseEntity<List<Dict>> getDictList(String pid) {
+  public ResponseEntity<List<Dict>> getDictList(String parent) {
     return ResponseEntity
         .ok(dictService.list(
             Wrappers.<Dict>lambdaQuery()
-                .eq(ObjectUtils.isEmpty(pid), Dict::getPid, pid)));
+                .eq(ObjectUtils.isEmpty(parent), Dict::getParent, parent)));
   }
 
   @Override
-  public ResponseEntity<Dict> getDict(String id) {
-    return ResponseEntity.ok(dictService.getById(id));
+  public ResponseEntity<Dict> getDict(String uuid) {
+    return ResponseEntity.ok(dictService.getOne(
+        Wrappers.<Dict>lambdaQuery().eq(Dict::getUuid, uuid)));
   }
 
-  @SuppressWarnings("null")
   @Override
   public ResponseEntity<Dict> createDict(Dict dict) {
     dictService.save(dict);
-    return ResponseEntity.created(URI.create("/dict/" + dict.getId())).build();
+    return ResponseEntity.created(URI.create("/dict/" + dict.getUuid())).build();
   }
 
-  @SuppressWarnings("null")
   @Override
-  public ResponseEntity<Dict> updateDict(String id, Dict dict) {
-    dict.setId(id);
+  public ResponseEntity<Dict> updateDict(String uuid, Dict dict) {
+    dict.setUuid(uuid);
     dictService.updateById(dict);
-    return ResponseEntity.created(URI.create("/dict/" + dict.getId())).build();
+    return ResponseEntity.created(URI.create("/dict/" + uuid)).build();
   }
 
   @Override

@@ -9,7 +9,7 @@ get:
       content:
         application/json:
           schema:
-            $ref: "../model/auth.yaml"
+            $ref: "../model/user.yaml"
     "401":
       $ref: "../model/401Response.yaml"
     "500":

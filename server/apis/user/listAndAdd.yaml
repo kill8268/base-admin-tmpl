@@ -1,46 +1,42 @@
 get:
   tags:
     - auth
-  summary: 获取单个用户
-  operationId: getAuth
-  security:
-    - petstore_auth:
-        - "write:pets"
-        - "read:pets"
-    - BearerAuth: []
+  summary: 获取用户列表
+  operationId: getAuthList
   parameters:
-    - $ref: "./auth/parameter.yaml#/id"
+    - $ref: "./user/parameter.yaml#/name"
+    - $ref: "./user/parameter.yaml#/phone"
   responses:
     "200":
-      description: 查询用户成功
+      description: 查询用户列表成功
       content:
         application/json:
           schema:
-            $ref: "../model/auth.yaml"
+            type: array
+            items:
+              $ref: "../model/user.yaml"
     "401":
       $ref: "../model/401Response.yaml"
     "500":
       $ref: "../model/500Response.yaml"
-put:
+post:
   tags:
     - auth
-  summary: 更新用户
-  operationId: updateAuth
-  parameters:
-    - $ref: "./auth/parameter.yaml#/id"
+  summary: 创建用户
+  operationId: createAuth
   requestBody:
     required: true
     content:
       application/json:
         schema:
-          $ref: "../model/auth.yaml"
+          $ref: "../model/user.yaml"
   responses:
     "201":
-      description: 更新用户成功
+      description: 创建用户成功
       content:
         application/json:
           schema:
-            $ref: "../model/auth.yaml"
+            $ref: "../model/user.yaml"
     "401":
       $ref: "../model/401Response.yaml"
     "500":

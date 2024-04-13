@@ -4,7 +4,7 @@ patch:
   operationId: dictToggleEnable
   summary: 根据ID修改系统字典状态
   parameters:
-    - $ref: "./dict/parameter.yaml#/id"
+    - $ref: "./dict/parameter.yaml#/uuid"
   responses:
     "200":
       description: 修改系统字典状态成功

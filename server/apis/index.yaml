@@ -14,24 +14,24 @@ tags:
     description: 系统字典
 paths:
   # auth api
-  /auth:
-    $ref: "./auth/listAndAdd.yaml"
-  /auth/page:
-    $ref: "./auth/page.yaml"
-  /auth/info:
-    $ref: "./auth/info.yaml"
-  /auth/{id}:
-    $ref: "./auth/getAndUpdate.yaml"
-  /auth/sign-in:
-    $ref: "./auth/sign-in.yaml"
-  /auth/{id}/toggleEnable:
-    $ref: "./auth/toggleEnable.yaml"
+  /user:
+    $ref: "./user/listAndAdd.yaml"
+  /user/page:
+    $ref: "./user/userPage.yaml"
+  /user/info:
+    $ref: "./user/info.yaml"
+  /user/{uuid}:
+    $ref: "./user/getAndUpdate.yaml"
+  /user/sign-in:
+    $ref: "./user/sign-in.yaml"
+  /user/{id}/toggleEnable:
+    $ref: "./user/toggleEnable.yaml"
   # dict api
   /dict:
     $ref: "./dict/listAndAdd.yaml"
   /dict/page:
     $ref: "./dict/page.yaml"
-  /dict/{id}:
+  /dict/{uuid}:
     $ref: "./dict/getAndUpdate.yaml"
-  /dict/{id}/toggleEnable:
+  /dict/{uuid}/toggleEnable:
     $ref: "./dict/toggleEnable.yaml"

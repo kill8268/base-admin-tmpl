@@ -1,9 +1,12 @@
 import { SWRConfig } from "swr";
+import ReactModal from "react-modal";
+import fetcher from "./lib/fetcher";
+import lazy from "@/helper/lazy.hoc";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import lazy from "@/helper/lazy.hoc";
-import fetcher from "./lib/fetcher";
+import FetchErrorBoundary from "./components/boundary/fetchError.boundary";
 import "@/assets/styles/global.less";
+ReactModal.setAppElement("#root");
 
 const createRouter = (router) => {
   const { path, element } = router;
@@ -24,6 +27,10 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       fetcher: ([...args]) => fetcher(...args),
     }}
   >
-    <RouterProvider router={createBrowserRouter(__routes.map(createRouter))} />
+    <FetchErrorBoundary>
+      <RouterProvider
+        router={createBrowserRouter(__routes.map(createRouter))}
+      />
+    </FetchErrorBoundary>
   </SWRConfig>,
 );

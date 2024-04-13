@@ -3,12 +3,12 @@ package com.noobcat.admin.controller.config;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-import org.openapitools.model.Auth;
+import org.openapitools.model.User;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 import com.noobcat.admin.component.JwtUtil;
 import com.noobcat.admin.context.UserContext;
-import com.noobcat.admin.service.AuthService;
+import com.noobcat.admin.service.UserService;
 
 import io.jsonwebtoken.ExpiredJwtException;
 
@@ -16,11 +16,11 @@ public class UserInterceptor implements HandlerInterceptor {
 
   private JwtUtil jwtUtil;
 
-  private AuthService authService;
+  private UserService userService;
 
-  public UserInterceptor(JwtUtil jwtUtil, AuthService authService) {
+  public UserInterceptor(JwtUtil jwtUtil, UserService authService) {
     this.jwtUtil = jwtUtil;
-    this.authService = authService;
+    this.userService = authService;
   }
 
   private static final void setEerrorResponse(HttpServletResponse response, String errorMessage) throws Exception {
@@ -43,16 +43,16 @@ public class UserInterceptor implements HandlerInterceptor {
       return false;
     }
     try {
-      Auth auth = authService.getById(jwtUtil.extractUserId(token.split(" ")[1]));
-      if (auth == null) {
+      User user = userService.getById(jwtUtil.extractUserId(token.split(" ")[1]));
+      if (user == null) {
         setEerrorResponse(response, "{\"message\": \"非法访问\"}");
         return false;
       }
-      if (!auth.getEnable()) {
+      if (!user.getEnable()) {
         setEerrorResponse(response, "{\"message\": \"账号已禁用\"}");
         return false;
       }
-      UserContext.currentUser.set(auth);
+      UserContext.currentUser.set(user);
       return true;
     } catch (ExpiredJwtException e) {
       setEerrorResponse(response, "{\"message\": \"登录超时\"}");

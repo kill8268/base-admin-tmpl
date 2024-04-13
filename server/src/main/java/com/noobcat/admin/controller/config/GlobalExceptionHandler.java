@@ -19,6 +19,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
   @ExceptionHandler(RuntimeException.class)
   @ResponseStatus(HttpStatus.UNAUTHORIZED)
   public ResponseEntity<Error> handleRuntimeException(RuntimeException ex) {
+    System.out.println(ex.getMessage());
     return ResponseEntity.badRequest().body(new Error().message(ex.getMessage()));
   }
 }

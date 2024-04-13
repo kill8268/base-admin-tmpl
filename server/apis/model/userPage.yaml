@@ -5,4 +5,4 @@ allOf:
       records:
         type: array
         items:
-          $ref: "./auth.yaml"
+          $ref: "./user.yaml"

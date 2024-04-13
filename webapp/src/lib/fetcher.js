@@ -1,4 +1,4 @@
-import useFetchErrorStore from "@/store/useFetchError.store";
+import useFetchErrorEffect from "@/hooks/useFetchErrorEffect";
 import storage from "./storage";
 
 const URL = (url, params) => {
@@ -32,7 +32,7 @@ export default async function fetcher(method, url, data, timeout = 5000) {
 
   const headers = {
     "Content-Type": "application/json",
-    Authorization: `${storage().get(storage.KEY.TOKEN)}`,
+    Authorization: `Bearer ${storage().get(storage.KEY.TOKEN)}`,
     Device: "PC",
     DeviceId: "PC",
   };
@@ -59,7 +59,7 @@ export default async function fetcher(method, url, data, timeout = 5000) {
 
   const timeoutPromise = new Promise((_, reject) =>
     setTimeout(() => {
-      useFetchErrorStore.setError(res.status, "网路异常，请稍后再试", "http");
+      useFetchErrorEffect.setError(res.status, "网路异常，请稍后再试", "http");
       reject(new Error("[network]:Request timed out"));
     }, timeout),
   );
@@ -68,13 +68,11 @@ export default async function fetcher(method, url, data, timeout = 5000) {
   if (res.status === 401) {
     const response = await res.json();
     const { message } = response;
-    useFetchErrorStore.setError(res.status, message, "loginout");
+    useFetchErrorEffect.setError(res.status, message, "loginout");
     throw new Error(`[api][${res.status}]:登录状态变更`);
   }
   if (res.status >= 400) {
-    const response = await res.json();
-    const { message } = response;
-    useFetchErrorStore.setError(res.status, message, "http");
+    useFetchErrorEffect.setError(res.status, "网路繁忙，请稍后再试", "http");
     throw new Error(`[api][${res.status}]:请求异常`);
   }
   const response = await res.json();

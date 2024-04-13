@@ -19,4 +19,9 @@ export default create((set) => ({
     set({ userInfo: res, initing: false });
     storage("object").set(storage.KEY.USER_INFO, res);
   },
+  logout() {
+    storage().remove(storage.KEY.TOKEN);
+    storage().remove(storage.KEY.USER_INFO);
+    set({ userInfo: null });
+  },
 }));

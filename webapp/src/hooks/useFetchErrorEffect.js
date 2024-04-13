@@ -1,4 +1,3 @@
-// ! 非zustand, 使用 useSyncExternalStore, 可在React组件之外的地方使用
 import { useSyncExternalStore } from "react";
 
 let error = null;
@@ -32,12 +31,15 @@ function getSnapshot() {
   return error;
 }
 
-function useFetchErrorStore() {
+function useFetchErrorEffect(func) {
   const _error = useSyncExternalStore(subscribe, getSnapshot);
-  return _error;
+  if (_error) {
+    func(_error);
+    clearError();
+  }
 }
 
-useFetchErrorStore.setError = setError;
-useFetchErrorStore.clearError = clearError;
+useFetchErrorEffect.setError = setError;
+useFetchErrorEffect.clearError = clearError;
 
-export default useFetchErrorStore;
+export default useFetchErrorEffect;

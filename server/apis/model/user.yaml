@@ -1,8 +1,6 @@
 allOf:
   - $ref: "./base.yaml"
   - type: object
-    xml:
-      name: "auth"
     required:
       - phone
       - name
@@ -17,5 +15,5 @@ allOf:
       password:
         type: string
         description: 密码
-      isAdmin:
+      super:
         type: boolean

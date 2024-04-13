@@ -9,14 +9,20 @@ export default function Login() {
   const {
     register,
     handleSubmit,
+    setError,
     formState: { errors },
   } = useForm();
 
   const login = useUserStore((state) => state.login);
 
   const onSubmit = async (data) => {
-    await login(data);
-    navigate("/");
+    try {
+      await login(data);
+      navigate("/");
+    } catch (error) {
+      console.log(error);
+      setError("auth", { message: "用户名或密码错误" });
+    }
   };
 
   return (
@@ -37,20 +43,28 @@ export default function Login() {
               <div>
                 <input
                   className="input input-bordered focus:input-primary w-full"
-                  {...register("auth", { required: true })}
+                  {...register("auth")}
                   placeholder="用户名/手机号"
                 />
-                <span className={errors.auth ? "opacity-100" : "opacity-0"}>
-                  This field is required
+                <span
+                  className={
+                    errors.auth ? "opacity-100 text-error" : "opacity-0"
+                  }
+                >
+                  {errors.auth?.message || "-"}
                 </span>
                 <input
                   className="input input-bordered focus:input-primary w-full"
-                  {...register("password", { required: true })}
+                  {...register("password")}
                   placeholder="密码"
                   type="password"
                 />
-                <span className={errors.password ? "opacity-100" : "opacity-0"}>
-                  This field is required
+                <span
+                  className={
+                    errors.password ? "opacity-100 text-error" : "opacity-0"
+                  }
+                >
+                  {errors.password?.message || "-"}
                 </span>
               </div>
               <button className="btn btn-primary w-full" type="submit">
